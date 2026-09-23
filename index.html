@@ -230,7 +230,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   // open a stop when its link is tapped
   function go(id,smooth){var t=document.getElementById(id);if(!t)return;var d=t.tagName==='DETAILS'?t:t.closest('details');if(d)d.open=true;
-    requestAnimationFrame(function(){t.scrollIntoView({behavior:smooth?'smooth':'auto',block:'start'});});}
+    setTimeout(function(){t.scrollIntoView({behavior:smooth?'smooth':'auto',block:'start'});},30);}
   document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id||!document.getElementById(id))return;
     e.preventDefault();history.replaceState(null,'','#'+id);go(id,true);});
   if(location.hash)go(location.hash.slice(1),false);
