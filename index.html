@@ -214,10 +214,10 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js"></script>
-<script src="photos2.js"></script>
-<script src="listings.js"></script>
-<script src="trip.js"></script>
+<script src="photos.js?v=6605ddab"></script>
+<script src="photos2.js?v=6605ddab"></script>
+<script src="listings.js?v=6605ddab"></script>
+<script src="trip.js?v=6605ddab"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -227,7 +227,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   function nts(n){return n+(n>1?' nights':' night');}
   function el(id){return document.getElementById(id);}
   function acc(h){var a=h.access;if(!a)return'';return'<ul class="acc"><li>🚆 <b>Station:</b> '+esc(a.station)+'</li><li>🏛️ <b>Centre:</b> '+esc(a.centre)+'</li><li>🛒 <b>Groceries:</b> '+esc(a.grocery)+'</li><li>🍳 <b>Kitchen:</b> '+esc(a.kitchen)+'</li></ul>';}
-  var L=(window.LISTINGS||[]).slice().sort(function(a,b){return a.price_eur-b.price_eur;});
+  var LS=(window.LISTINGS||[]).slice().sort(function(a,b){return a.price_eur-b.price_eur;});
   var AREA={Trasimeno:2,Lucca:3,Pescara:4,Lecce:5,Salerno:6,Rome:7};
   var PREC={exact:['Exact address',''],street:['Street, no number',''],locality:['Village / area','lo'],town:['Town only — pin at town centre','lo']};
   function eur2usd(e){return Math.round(e*1.1411/100)*100;}
@@ -252,7 +252,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     T.days.filter(function(d){return d[1]===s.n;}).forEach(function(d){
       o+='<div class="day" data-date="'+d[0]+'"><div class="d">'+d[0]+'</div><div>'+esc(d[2])+'</div>'+(d[3].length?'<div class="pics">'+d[3].map(function(k){return img(k);}).join('')+'</div>':'')+'</div>';
     });
-    var nL=L.filter(function(x){return AREA[x.area]===s.n;}).length;
+    var nL=LS.filter(function(x){return AREA[x.area]===s.n;}).length;
     o+=(s.houses?'<div class="houses"><b>Houses under budget:</b> '+esc(s.houses)+(nL?'<div class="links"><a href="#area'+s.n+'">See '+nL+' listings for sale ›</a></div>':'')+'</div>':'');
     (s.alt||[]).forEach(function(a){o+='<div class="alt"><div class="k">Other option</div><div class="v" style="font-weight:600"><a href="'+a.url+'" target="_blank" rel="noopener">'+esc(a.name)+'</a> · '+usd(a.total)+'</div><div class="n" style="color:var(--soft);font-size:15px">'+esc(a.beds)+'. '+esc(a.note)+'</div>'+acc(a)+'</div>';});
     o+='</details>';
@@ -278,7 +278,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   // houses for sale
   var hh='';
-  T.stops.forEach(function(s){var list=L.filter(function(x){return AREA[x.area]===s.n;});if(!list.length)return;
+  T.stops.forEach(function(s){var list=LS.filter(function(x){return AREA[x.area]===s.n;});if(!list.length)return;
     hh+='<details class="card area" id="area'+s.n+'"><summary><span class="num">'+s.n+'</span>Near '+esc(s.town)+'<span class="cnt">'+list.length+' · from '+usd(eur2usd(list[0].price_eur))+' ▾</span></summary>';
     list.forEach(function(x){var pr=PREC[x.address_precision]||['Location unclear','lo'];
       hh+='<div class="item"><div class="top"><div class="ttl">'+esc(x.town)+(x.size_m2?' · '+x.size_m2+' m²':'')+'</div><div class="price">'+usd(eur2usd(x.price_eur))+'</div></div>'
@@ -342,7 +342,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     });
     L.marker([T.end.lat,T.end.lon],{icon:L.divIcon({className:'',html:'<div class="pin end">⚓</div>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(m).bindPopup('<b>Civitavecchia</b><br>'+T.end.date+' — the ship');
     m.fitBounds(L.latLngBounds(pts).pad(0.06));
-    var groups={};L.forEach(function(x){if(x.lat==null)return;var k=(+x.lat).toFixed(4)+','+(+x.lon).toFixed(4);(groups[k]=groups[k]||[]).push(x);});
+    var groups={};LS.forEach(function(x){if(x.lat==null)return;var k=(+x.lat).toFixed(4)+','+(+x.lon).toFixed(4);(groups[k]=groups[k]||[]).push(x);});
     var hl=window.L.layerGroup().addTo(m),pinByKey={};
     Object.keys(groups).forEach(function(k){var g=groups[k],ll=k.split(',').map(Number);
       var html='<div style="max-height:220px;overflow:auto">'+g.map(function(x){var pr=PREC[x.address_precision]||['',''];return'<div style="margin-bottom:8px"><b>'+usd(eur2usd(x.price_eur))+'</b> · '+esc(x.town)+(x.size_m2?' · '+x.size_m2+' m²':'')+'<br>'+esc(x.address||'')+'<br><i>'+pr[0]+'</i><br><a href="'+x.url+'" target="_blank" rel="noopener">Listing ↗</a></div>';}).join('')+'</div>';
