@@ -97,6 +97,22 @@ section{padding:26px 0 4px}
 .credits div{margin-bottom:4px}
 footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
+.acc{margin:6px 0 0;padding:0;list-style:none;font-size:14px;color:var(--soft)}
+.acc li{padding:2px 0}
+.acc b{color:var(--ink);font-weight:600}
+.alt{margin:0 14px 14px;padding:12px 14px;border:1px dashed var(--line);border-radius:10px}
+.alt .k{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:700}
+.badge{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;background:var(--accent-soft);color:var(--accent);margin-left:4px}
+.badge.lo{background:var(--line);color:var(--soft)}
+.hpin{background:#3f6b4a;color:#fff;border:2px solid #fff;border-radius:50%;width:24px;height:24px;display:grid;place-items:center;font-size:12px;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.maptoggle{display:flex;gap:8px;align-items:center;margin:0 0 10px;font-weight:600;font-size:15px}
+.maptoggle input{width:20px;height:20px}
+.area{margin-bottom:12px}
+.area>summary{list-style:none;cursor:pointer;padding:14px;display:flex;align-items:center;gap:8px;font-weight:700}
+.area>summary::-webkit-details-marker{display:none}
+.area .cnt{margin-left:auto;color:var(--faint);font-weight:600;font-size:14px}
+.area .item{border-top:1px solid var(--line);border-radius:0}
+.links{display:flex;gap:14px;margin-top:6px;font-weight:700;font-size:15px}
 /* bottom tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -134,6 +150,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <section id="map-sec">
     <h2>Map</h2>
     <p class="sub">Numbers are the order. Tap a pin for dates. Every move is by train.</p>
+    <label class="maptoggle"><input type="checkbox" id="showHouses" checked> Show houses for sale (green pins)</label>
     <div id="map"></div>
   </section>
 
@@ -143,11 +160,17 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div id="stops"></div>
   </section>
 
+  <section id="houses">
+    <h2>Houses for sale</h2>
+    <p class="sub">Real listings up to $57,000 near each stop, from gate-away.com (checked 23 Sep). Tap "Map" to see a pin. Most agencies only give the village, not the street number — each one says how exact its pin is.</p>
+    <div id="houseAreas"></div>
+  </section>
+
   <section id="hotels">
     <h2>Hotels</h2>
     <p class="sub">Every room checked: a real bed for each of you, air conditioning. Nothing booked yet.</p>
     <div class="list" id="hotelList"></div>
-    <p class="sub" style="margin-top:10px">Paid at the hotels on top: city tax about $395 plus 10% VAT at six of the seven (about $210).</p>
+    <p class="sub" style="margin-top:10px">Paid at the hotels on top: city tax about $430 plus 10% VAT at six of the seven (about $215).</p>
   </section>
 
   <section id="trains">
@@ -186,12 +209,14 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <a href="#map-sec"><span>🗺️</span>Map</a>
   <a href="#plan"><span>📅</span>Days</a>
   <a href="#hotels"><span>🏨</span>Hotels</a>
-  <a href="#trains"><span>🚆</span>Trains</a>
+  <a href="#houses"><span>🏡</span>Houses</a>
   <a href="#costs"><span>💵</span>Cost</a>
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="photos.js"></script>
+<script src="photos2.js"></script>
+<script src="listings.js"></script>
 <script src="trip.js"></script>
 <script>
 (function(){
@@ -201,6 +226,11 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   function usd(n){return'$'+n.toLocaleString('en-US');}
   function nts(n){return n+(n>1?' nights':' night');}
   function el(id){return document.getElementById(id);}
+  function acc(h){var a=h.access;if(!a)return'';return'<ul class="acc"><li>🚆 <b>Station:</b> '+esc(a.station)+'</li><li>🏛️ <b>Centre:</b> '+esc(a.centre)+'</li><li>🛒 <b>Groceries:</b> '+esc(a.grocery)+'</li><li>🍳 <b>Kitchen:</b> '+esc(a.kitchen)+'</li></ul>';}
+  var L=(window.LISTINGS||[]).slice().sort(function(a,b){return a.price_eur-b.price_eur;});
+  var AREA={Trasimeno:2,Lucca:3,Pescara:4,Lecce:5,Salerno:6,Rome:7};
+  var PREC={exact:['Exact address',''],street:['Street, no number',''],locality:['Village / area','lo'],town:['Town only — pin at town centre','lo']};
+  function eur2usd(e){return Math.round(e*1.1411/100)*100;}
 
   // towns
   var h='';
@@ -216,13 +246,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   T.stops.forEach(function(s){
     o+='<details class="card stop" id="stop'+s.n+'"'+(s.n===1?' open':'')+'><summary>'+img(s.photo,'hero',s.town)+cap(s.n,s.town,s.from+' → '+s.to+' · '+nts(s.nights)).replace('<summary>','').replace('</summary>','')+'</summary>';
     o+='<div class="facts">'
-      +'<div class="fact"><div class="k">Sleep</div><div class="v"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+usd(s.hotel.total)+'</div><div class="n">'+esc(s.hotel.beds)+'</div></div>'
+      +'<div class="fact"><div class="k">Sleep</div><div class="v"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+usd(s.hotel.total)+'</div><div class="n">'+esc(s.hotel.beds)+'</div>'+acc(s.hotel)+'</div>'
       +'<div class="fact"><div class="k">Getting there</div><div class="v">'+esc(s.getThere.time)+' · '+esc(s.getThere.cost)+'</div><div class="n">'+esc(s.getThere.how)+'</div></div>'
       +'<div class="fact"><div class="k">Weather</div><div class="v">'+esc(s.weather)+'</div><div class="n">10-year average</div></div></div>';
     T.days.filter(function(d){return d[1]===s.n;}).forEach(function(d){
       o+='<div class="day" data-date="'+d[0]+'"><div class="d">'+d[0]+'</div><div>'+esc(d[2])+'</div>'+(d[3].length?'<div class="pics">'+d[3].map(function(k){return img(k);}).join('')+'</div>':'')+'</div>';
     });
-    o+=(s.houses?'<div class="houses"><b>Houses under budget:</b> '+esc(s.houses)+'</div>':'')+'</details>';
+    var nL=L.filter(function(x){return AREA[x.area]===s.n;}).length;
+    o+=(s.houses?'<div class="houses"><b>Houses under budget:</b> '+esc(s.houses)+(nL?'<div class="links"><a href="#area'+s.n+'">See '+nL+' listings for sale ›</a></div>':'')+'</div>':'');
+    (s.alt||[]).forEach(function(a){o+='<div class="alt"><div class="k">Other option</div><div class="v" style="font-weight:600"><a href="'+a.url+'" target="_blank" rel="noopener">'+esc(a.name)+'</a> · '+usd(a.total)+'</div><div class="n" style="color:var(--soft);font-size:15px">'+esc(a.beds)+'. '+esc(a.note)+'</div>'+acc(a)+'</div>';});
+    o+='</details>';
   });
   var last=T.days[T.days.length-1];
   o+='<details class="card stop" id="stop8"><summary>'+img(T.end.photo,'hero','Civitavecchia')+cap('⚓','Civitavecchia',T.end.date+' · the ship',true).replace('<summary>','').replace('</summary>','')+'</summary><div class="day" data-date="'+last[0]+'"><div class="d">'+last[0]+'</div><div>'+esc(T.end.how)+'</div></div></details>';
@@ -238,9 +271,23 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   // hotels
   var hl='',ht=0;
   T.stops.forEach(function(s){ht+=s.hotel.total;
-    hl+='<div class="card item"><div class="top"><div class="ttl"><span class="num">'+s.n+'</span>'+esc(s.town)+'</div><div class="price">'+usd(s.hotel.total)+'</div></div><div class="meta"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+s.from+' → '+s.to+'</div><div class="meta">'+esc(s.hotel.beds)+'</div><div class="note">'+esc(s.hotel.note)+'</div></div>';});
+    hl+='<div class="card item"><div class="top"><div class="ttl"><span class="num">'+s.n+'</span>'+esc(s.town)+'</div><div class="price">'+usd(s.hotel.total)+'</div></div><div class="meta"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+s.from+' → '+s.to+'</div><div class="meta">'+esc(s.hotel.beds)+'</div><div class="note">'+esc(s.hotel.note)+'</div>'+acc(s.hotel)+'</div>';
+    (s.alt||[]).forEach(function(a){hl+='<div class="card item" style="border-style:dashed"><div class="top"><div class="ttl" style="font-weight:600;color:var(--soft)">Other option · '+esc(s.town)+'</div><div class="price">'+usd(a.total)+'</div></div><div class="meta"><a href="'+a.url+'" target="_blank" rel="noopener">'+esc(a.name)+'</a></div><div class="meta">'+esc(a.beds)+'</div><div class="note">'+esc(a.note)+'</div>'+acc(a)+'</div>';});});
   hl+='<div class="card"><div class="sumrow total"><span>33 nights, all 3</span><span>'+usd(ht)+'</span></div></div>';
   el('hotelList').innerHTML=hl;
+
+  // houses for sale
+  var hh='';
+  T.stops.forEach(function(s){var list=L.filter(function(x){return AREA[x.area]===s.n;});if(!list.length)return;
+    hh+='<details class="card area" id="area'+s.n+'"><summary><span class="num">'+s.n+'</span>Near '+esc(s.town)+'<span class="cnt">'+list.length+' · from '+usd(eur2usd(list[0].price_eur))+' ▾</span></summary>';
+    list.forEach(function(x){var pr=PREC[x.address_precision]||['Location unclear','lo'];
+      hh+='<div class="item"><div class="top"><div class="ttl">'+esc(x.town)+(x.size_m2?' · '+x.size_m2+' m²':'')+'</div><div class="price">'+usd(eur2usd(x.price_eur))+'</div></div>'
+        +'<div class="meta">'+esc(x.title||'')+(x.condition?' · '+esc(x.condition):'')+'</div>'
+        +'<div class="meta">📍 '+esc(x.address||x.town)+' <span class="badge '+pr[1]+'">'+pr[0]+'</span></div>'
+        +(x.note?'<div class="note">'+esc(x.note)+'</div>':'')
+        +'<div class="links"><a href="'+x.url+'" target="_blank" rel="noopener">Listing ↗</a>'+(x.lat?'<a href="#map-sec" data-pin="'+x.lat+','+x.lon+'">Map</a>':'')+'<span style="color:var(--faint);font-weight:400">€'+x.price_eur.toLocaleString('en-US')+'</span></div></div>';});
+    hh+='</details>';});
+  el('houseAreas').innerHTML=hh||'<p class="sub">Listings are being collected.</p>';
 
   // trains
   var tl='';
@@ -295,6 +342,15 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     });
     L.marker([T.end.lat,T.end.lon],{icon:L.divIcon({className:'',html:'<div class="pin end">⚓</div>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(m).bindPopup('<b>Civitavecchia</b><br>'+T.end.date+' — the ship');
     m.fitBounds(L.latLngBounds(pts).pad(0.06));
+    var groups={};L.forEach(function(x){if(x.lat==null)return;var k=(+x.lat).toFixed(4)+','+(+x.lon).toFixed(4);(groups[k]=groups[k]||[]).push(x);});
+    var hl=window.L.layerGroup().addTo(m),pinByKey={};
+    Object.keys(groups).forEach(function(k){var g=groups[k],ll=k.split(',').map(Number);
+      var html='<div style="max-height:220px;overflow:auto">'+g.map(function(x){var pr=PREC[x.address_precision]||['',''];return'<div style="margin-bottom:8px"><b>'+usd(eur2usd(x.price_eur))+'</b> · '+esc(x.town)+(x.size_m2?' · '+x.size_m2+' m²':'')+'<br>'+esc(x.address||'')+'<br><i>'+pr[0]+'</i><br><a href="'+x.url+'" target="_blank" rel="noopener">Listing ↗</a></div>';}).join('')+'</div>';
+      var mk=window.L.marker(ll,{icon:window.L.divIcon({className:'',html:'<div class="hpin">'+(g.length>1?g.length:'🏠')+'</div>',iconSize:[24,24],iconAnchor:[12,12]})}).bindPopup(html);
+      hl.addLayer(mk);pinByKey[k]=mk;});
+    el('showHouses').addEventListener('change',function(e){if(e.target.checked)hl.addTo(m);else m.removeLayer(hl);});
+    document.addEventListener('click',function(e){var a=e.target.closest('a[data-pin]');if(!a)return;var p=a.getAttribute('data-pin').split(',').map(Number);var k=p[0].toFixed(4)+','+p[1].toFixed(4);
+      el('showHouses').checked=true;hl.addTo(m);setTimeout(function(){m.setView(p,13);if(pinByKey[k])pinByKey[k].openPopup();},350);});
     if(touch){var mp=el('map');mp.addEventListener('touchstart',function(e){if(e.touches.length>1)m.dragging.enable();},{passive:true});mp.addEventListener('touchend',function(){m.dragging.disable();},{passive:true});}
   }
 })();
