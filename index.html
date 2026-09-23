@@ -18,7 +18,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171513;--surface:#221f1b;--ink:#f1ece4;--soft:#c9c1b6;--faint:#968d82;--line:#38322b;--accent:#e58a5c;--accent-soft:#3a2a20;--navy:#7fa6c9;--shadow:none}}
 :root[data-theme="dark"]{--bg:#171513;--surface:#221f1b;--ink:#f1ece4;--soft:#c9c1b6;--faint:#968d82;--line:#38322b;--accent:#e58a5c;--accent-soft:#3a2a20;--navy:#7fa6c9;--shadow:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;scroll-padding-top:12px}
+html{scroll-padding-top:12px}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Source Sans 3",system-ui,sans-serif;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
 a{color:var(--accent)}
 img{display:block;max-width:100%}
@@ -229,8 +229,11 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   el('stops').innerHTML=o;
 
   // open a stop when its link is tapped
-  function openHash(){var t=location.hash&&document.querySelector(location.hash);if(t&&t.tagName==='DETAILS'){t.open=true;}}
-  window.addEventListener('hashchange',openHash);openHash();
+  function go(id,smooth){var t=document.getElementById(id);if(!t)return;var d=t.tagName==='DETAILS'?t:t.closest('details');if(d)d.open=true;
+    requestAnimationFrame(function(){t.scrollIntoView({behavior:smooth?'smooth':'auto',block:'start'});});}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id||!document.getElementById(id))return;
+    e.preventDefault();history.replaceState(null,'','#'+id);go(id,true);});
+  if(location.hash)go(location.hash.slice(1),false);
 
   // hotels
   var hl='',ht=0;
