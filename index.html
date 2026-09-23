@@ -113,6 +113,19 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .area .cnt{margin-left:auto;color:var(--faint);font-weight:600;font-size:14px}
 .area .item{border-top:1px solid var(--line);border-radius:0}
 .links{display:flex;gap:14px;margin-top:6px;font-weight:700;font-size:15px}
+.bk{padding:12px 14px;border-top:1px solid var(--line);display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start}
+.bk:first-child{border-top:0}
+.bk .st{font-size:20px;line-height:1.2}
+.bk .nm{font-weight:700}
+.bk .sm{color:var(--soft);font-size:14px}
+.bk .amt{font-weight:700;white-space:nowrap;text-align:right}
+.bk.paid{background:color-mix(in srgb,#3f6b4a 10%,transparent)}
+.bk .sec{margin-top:6px;font-size:14px;padding:8px 10px;border-radius:8px;background:var(--accent-soft)}
+.lockbox{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.lockbox input{flex:1;min-width:140px;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.lockbox button{font:inherit;font-weight:700;padding:10px 16px;border:0;border-radius:10px;background:var(--accent);color:#fff}
+.status{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+.status.paid{background:#3f6b4a;color:#fff}.status.todo{background:var(--line);color:var(--soft)}
 /* bottom tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -167,8 +180,10 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   </section>
 
   <section id="hotels">
-    <h2>Hotels</h2>
-    <p class="sub">Every room checked: a real bed for each of you, air conditioning. Nothing booked yet.</p>
+    <h2>Bookings</h2>
+    <p class="sub">✅🔒 = paid and locked in. ⏳ = still to book. Every room checked: a real bed for each of you, a private bathroom inside the room, and A/C.</p>
+    <div class="card" id="tracker"></div>
+    <h2 style="margin-top:22px">Hotel details</h2>
     <div class="list" id="hotelList"></div>
     <p class="sub" style="margin-top:10px">Paid at the hotels on top: city tax about $430 plus 10% VAT at six of the seven (about $215).</p>
   </section>
@@ -208,16 +223,17 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <a href="#towns"><span>📍</span>Towns</a>
   <a href="#map-sec"><span>🗺️</span>Map</a>
   <a href="#plan"><span>📅</span>Days</a>
-  <a href="#hotels"><span>🏨</span>Hotels</a>
+  <a href="#hotels"><span>🏨</span>Bookings</a>
   <a href="#houses"><span>🏡</span>Houses</a>
   <a href="#costs"><span>💵</span>Cost</a>
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=6605ddab"></script>
-<script src="photos2.js?v=6605ddab"></script>
-<script src="listings.js?v=6605ddab"></script>
-<script src="trip.js?v=6605ddab"></script>
+<script src="photos.js?v=1790188663"></script>
+<script src="photos2.js?v=1790188663"></script>
+<script src="listings.js?v=1790188663"></script>
+<script src="secure.js?v=1790188663"></script>
+<script src="trip.js?v=1790188663"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -230,6 +246,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var LS=(window.LISTINGS||[]).slice().sort(function(a,b){return a.price_eur-b.price_eur;});
   var AREA={Trasimeno:2,Lucca:3,Pescara:4,Lecce:5,Salerno:6,Rome:7};
   var PREC={exact:['Exact address',''],street:['Street, no number',''],locality:['Village / area','lo'],town:['Town only — pin at town centre','lo']};
+  function stBadge(h){return h.status==='paid'?'<span class="status paid">✅ PAID · 🔒 LOCKED</span>':'<span class="status todo">⏳ TO BOOK</span>';}
   function eur2usd(e){return Math.round(e*1.1411/100)*100;}
 
   // towns
@@ -246,7 +263,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   T.stops.forEach(function(s){
     o+='<details class="card stop" id="stop'+s.n+'"'+(s.n===1?' open':'')+'><summary>'+img(s.photo,'hero',s.town)+cap(s.n,s.town,s.from+' → '+s.to+' · '+nts(s.nights)).replace('<summary>','').replace('</summary>','')+'</summary>';
     o+='<div class="facts">'
-      +'<div class="fact"><div class="k">Sleep</div><div class="v"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+usd(s.hotel.total)+'</div><div class="n">'+esc(s.hotel.beds)+'</div>'+acc(s.hotel)+'</div>'
+      +'<div class="fact"><div class="k">Sleep'+stBadge(s.hotel)+'</div><div class="v"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+usd(s.hotel.total)+'</div><div class="n">'+esc(s.hotel.beds)+'</div>'+acc(s.hotel)+'</div>'
       +'<div class="fact"><div class="k">Getting there</div><div class="v">'+esc(s.getThere.time)+' · '+esc(s.getThere.cost)+'</div><div class="n">'+esc(s.getThere.how)+'</div></div>'
       +'<div class="fact"><div class="k">Weather</div><div class="v">'+esc(s.weather)+'</div><div class="n">10-year average</div></div></div>';
     T.days.filter(function(d){return d[1]===s.n;}).forEach(function(d){
@@ -275,6 +292,26 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     (s.alt||[]).forEach(function(a){hl+='<div class="card item" style="border-style:dashed"><div class="top"><div class="ttl" style="font-weight:600;color:var(--soft)">Other option · '+esc(s.town)+'</div><div class="price">'+usd(a.total)+'</div></div><div class="meta"><a href="'+a.url+'" target="_blank" rel="noopener">'+esc(a.name)+'</a></div><div class="meta">'+esc(a.beds)+'</div><div class="note">'+esc(a.note)+'</div>'+acc(a)+'</div>';});});
   hl+='<div class="card"><div class="sumrow total"><span>33 nights, all 3</span><span>'+usd(ht)+'</span></div></div>';
   el('hotelList').innerHTML=hl;
+
+  // booking tracker
+  var tk2='',paid=0,todo=0;
+  T.stops.forEach(function(s){var h=s.hotel,isP=h.status==='paid';if(isP)paid+=h.total;else todo+=h.total;
+    tk2+='<div class="bk'+(isP?' paid':'')+'" data-n="'+s.n+'"><div class="st">'+(isP?'✅':'⏳')+'</div><div><div class="nm">'+s.n+'. '+esc(s.town)+' — '+esc(h.name)+(isP?' 🔒':'')+'</div><div class="sm">'+s.from+' → '+s.to+' · '+(h.cancel?esc(h.cancel):'')+'</div>'+(h.phone?'<div class="sm">📞 <a href="tel:'+h.phone.replace(/\s/g,'')+'">'+esc(h.phone)+'</a> · ✉️ message via the Booking.com app</div>':'')+'<div class="secslot"></div></div><div class="amt">'+usd(h.total)+(isP?'<div class="sm">paid</div>':'')+'</div></div>';});
+  tk2+='<div class="sumrow total"><span>Paid so far</span><span>'+usd(paid)+'</span></div><div class="sumrow"><span>Still to book</span><span style="font-weight:700">'+usd(todo)+'</span></div><div class="sumrow"><span>All hotels</span><span style="font-weight:700">'+usd(paid+todo)+'</span></div>';
+  tk2+='<div class="lockbox" id="lockbox"><span style="width:100%;font-size:14px;color:var(--soft)">🔒 Confirmation numbers and PINs are locked. Enter the trip password to show them on this phone.</span><input id="pw" type="password" autocomplete="current-password" placeholder="Trip password"><button id="unlock" type="button">Unlock</button></div>';
+  el('tracker').innerHTML=tk2;
+  function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0);});}
+  async function unlock(pw,quiet){try{var Lk=window.LOCKED;if(!Lk)return;var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+      var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(Lk.salt),iterations:Lk.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+      var plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(Lk.iv)},key,b64(Lk.data));var list=JSON.parse(new TextDecoder().decode(plain));
+      list.forEach(function(b){var row=document.querySelector('.bk[data-n="'+b.n+'"] .secslot');if(row)row.innerHTML='<div class="sec">Confirmation <b>'+esc(b.conf)+'</b> · PIN <b>'+esc(b.pin)+'</b>'+(b.due_at_property?'<br>Due at the property: '+esc(b.due_at_property):'')+'</div>';});
+      el('lockbox').innerHTML='<span style="font-size:14px;color:var(--soft)">🔓 Unlocked on this device. <a href="#" id="relock">Lock again</a></span>';
+      try{localStorage.setItem('tripPw',pw);}catch(e){}
+      el('relock').addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('tripPw');}catch(x){}location.reload();});
+    }catch(e){if(!quiet)alert('That password did not work.');}}
+  el('unlock').addEventListener('click',function(){unlock(el('pw').value,false);});
+  el('pw').addEventListener('keydown',function(e){if(e.key==='Enter')unlock(el('pw').value,false);});
+  try{var saved=localStorage.getItem('tripPw');if(saved)unlock(saved,true);}catch(e){}
 
   // houses for sale
   var hh='';
