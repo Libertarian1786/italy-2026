@@ -25,3 +25,7 @@ Object.assign(window.PHOTOS, {
 "Montecatini":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Terme_tettuccio_montecatini_1.jpg/960px-Terme_tettuccio_montecatini_1.jpg","p":"https://commons.wikimedia.org/wiki/File:Terme_tettuccio_montecatini_1.jpg","b":"Michela.osteri","l":"CC BY-SA 4.0"},
 "Montecatini_Funicular":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Funicolare_di_Montecatini_Terme.jpg/960px-Funicolare_di_Montecatini_Terme.jpg","p":"https://commons.wikimedia.org/wiki/File:Funicolare_di_Montecatini_Terme.jpg","b":"Minnitre","l":"CC BY-SA 4.0"}
 });
+Object.assign(window.PHOTOS, {
+"Montesilvano":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Riviera_montesilvano_2.jpg/960px-Riviera_montesilvano_2.jpg","p":"https://commons.wikimedia.org/wiki/File:Riviera_montesilvano_2.jpg","b":"Sayatek","l":"CC BY-SA 4.0"},
+"Montesilvano_beach":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Spiaggia_montesilvano.jpg/960px-Spiaggia_montesilvano.jpg","p":"https://commons.wikimedia.org/wiki/File:Spiaggia_montesilvano.jpg","b":"Comune di Montesilvano","l":"CC BY-SA 3.0"}
+});
