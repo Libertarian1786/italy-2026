@@ -237,11 +237,11 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790194615"></script>
-<script src="photos2.js?v=1790194615"></script>
-<script src="listings.js?v=1790194615"></script>
-<script src="secure.js?v=1790194615"></script>
-<script src="trip.js?v=1790194615"></script>
+<script src="photos.js?v=1790194687"></script>
+<script src="photos2.js?v=1790194687"></script>
+<script src="listings.js?v=1790194687"></script>
+<script src="secure.js?v=1790194687"></script>
+<script src="trip.js?v=1790194687"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -254,7 +254,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var LS=(window.LISTINGS||[]).slice().sort(function(a,b){return a.price_eur-b.price_eur;});
   var AREA={Trasimeno:2,Lucca:3,Pescara:4,Lecce:5,Salerno:6,Rome:7};
   var PREC={exact:['Exact address',''],street:['Street, no number',''],locality:['Village / area','lo'],town:['Town only — pin at town centre','lo']};
-  function stBadge(h){return h.status==='paid'?'<span class="status paid">✅ PAID · 🔒 LOCKED</span>':'<span class="status todo">⏳ TO BOOK</span>';}
+  function stBadge(h){return h.status==='paid'?'<span class="status paid">✅ PAID · 🔒 LOCKED</span>':h.status==='booked'?'<span class="status paid">✅ BOOKED · 🔒 · charged '+esc(h.charge||'later')+'</span>':'<span class="status todo">⏳ TO BOOK</span>';}
   function eur2usd(e){return Math.round(e*1.1411/100)*100;}
 
   // towns
@@ -302,10 +302,10 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   el('hotelList').innerHTML=hl;
 
   // booking tracker
-  var tk2='',paid=0,todo=0;
-  T.stops.forEach(function(s){var h=s.hotel,isP=h.status==='paid';if(isP)paid+=h.total;else todo+=h.total;
-    tk2+='<div class="bk'+(isP?' paid':'')+'" data-n="'+s.n+'"><div class="st">'+(isP?'✅':'⏳')+'</div><div><div class="nm">'+s.n+'. '+esc(s.town)+' — '+esc(h.name)+(isP?' 🔒':'')+'</div><div class="sm">'+s.from+' → '+s.to+' · '+(h.cancel?esc(h.cancel):'')+'</div>'+(h.phone?'<div class="sm">📞 <a href="tel:'+h.phone.replace(/\s/g,'')+'">'+esc(h.phone)+'</a> · ✉️ '+(h.email?'<a href="mailto:'+esc(h.email)+'">'+esc(h.email)+'</a>':'message via the Booking.com app')+'</div>':'')+'<div class="secslot"></div></div><div class="amt">'+usd(h.total)+(isP?'<div class="sm">paid</div>':'')+'</div></div>';});
-  tk2+='<div class="sumrow total"><span>Paid so far</span><span>'+usd(paid)+'</span></div><div class="sumrow"><span>Still to book</span><span style="font-weight:700">'+usd(todo)+'</span></div><div class="sumrow"><span>All hotels</span><span style="font-weight:700">'+usd(paid+todo)+'</span></div>';
+  var tk2='',paid=0,todo=0,later=0;
+  T.stops.forEach(function(s){var h=s.hotel,isP=h.status==='paid'||h.status==='booked';if(h.status==='paid')paid+=h.total;else if(h.status==='booked')later+=h.total;else todo+=h.total;
+    tk2+='<div class="bk'+(isP?' paid':'')+'" data-n="'+s.n+'"><div class="st">'+(isP?'✅':'⏳')+'</div><div><div class="nm">'+s.n+'. '+esc(s.town)+' — '+esc(h.name)+(isP?' 🔒':'')+'</div><div class="sm">'+s.from+' → '+s.to+' · '+(h.cancel?esc(h.cancel):'')+'</div>'+(h.phone?'<div class="sm">📞 <a href="tel:'+h.phone.replace(/\s/g,'')+'">'+esc(h.phone)+'</a> · ✉️ '+(h.email?'<a href="mailto:'+esc(h.email)+'">'+esc(h.email)+'</a>':'message via the Booking.com app')+'</div>':'')+'<div class="secslot"></div></div><div class="amt">'+usd(h.total)+(h.status==='paid'?'<div class="sm">paid</div>':h.status==='booked'?'<div class="sm">charged '+esc(h.charge||'later')+'</div>':'')+'</div></div>';});
+  tk2+='<div class="sumrow total"><span>Paid so far</span><span>'+usd(paid)+'</span></div>'+(later?'<div class="sumrow"><span>Booked, charged later</span><span style="font-weight:700">'+usd(later)+'</span></div>':'')+'<div class="sumrow"><span>Still to book</span><span style="font-weight:700">'+usd(todo)+'</span></div><div class="sumrow"><span>All hotels</span><span style="font-weight:700">'+usd(paid+later+todo)+'</span></div>';
   tk2+='<div class="lockbox" id="lockbox"><span style="width:100%;font-size:14px;color:var(--soft)">🔒 Confirmation numbers and PINs are locked. Enter the trip password to show them on this phone.</span><input id="pw" type="password" autocomplete="current-password" placeholder="Trip password"><button id="unlock" type="button">Unlock</button></div>';
   el('tracker').innerHTML=tk2;
   function b64(s){return Uint8Array.from(atob(s),function(c){return c.charCodeAt(0);});}
