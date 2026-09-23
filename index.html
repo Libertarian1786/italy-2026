@@ -81,7 +81,7 @@ footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
   <p class="lead">Sep 29 – Nov 1, 2026 · 7 stops · 33 nights · Rome to Rome, then the ship from Civitavecchia.</p>
 </header>
 <nav><div class="wrap">
-  <a href="#towns">Towns & dates</a><a href="#map-sec">Map</a><a href="#plan">Day by day</a><a href="#hotels">Hotels</a><a href="#trains">Trains</a><a href="#car">Car</a><a href="#tickets">Tickets</a><a href="#credits">Photo credits</a>
+  <a href="#towns">Towns & dates</a><a href="#map-sec">Map</a><a href="#plan">Day by day</a><a href="#hotels">Hotels</a><a href="#trains">Trains</a><a href="#car">Car</a><a href="#tickets">Tickets</a><a href="#costs">Total cost</a><a href="#credits">Photo credits</a>
 </div></nav>
 
 <main class="wrap">
@@ -112,7 +112,7 @@ footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
 
   <section id="trains">
     <h2>Trains</h2>
-    <p class="sub">Live fares for 3 are being checked. Group fares (FrecciaFRIENDS) must be booked at least 15 days before each fast train.</p>
+    <p class="sub">Live fares for all 3 of you from Trenitalia and Italo, checked 23 Sep. Regional and Intercity fares are fixed, so there is no rush; the Italo fare on Oct 25 goes up as seats sell.</p>
     <div class="card tbl"><table id="trainTbl"></table></div>
   </section>
 
@@ -125,6 +125,12 @@ footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
     <h2>Tickets</h2>
     <p class="sub">Prices for all 3 of you, official sites only.</p>
     <div class="card tbl"><table id="ticketTbl"></table></div>
+  </section>
+
+  <section id="costs">
+    <h2>Total cost</h2>
+    <p class="sub">All 3 of you, in US dollars. Not included: food, flights, the cruise, travel insurance.</p>
+    <div class="card tbl"><table id="costTbl"></table></div>
   </section>
 
   <section id="credits">
@@ -180,7 +186,7 @@ footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
   // trains
   var tr='<tr><th>Date</th><th>From → to</th><th>How</th><th>Time</th><th class="r">For 3</th></tr>';
   T.stops.forEach(function(s,i){var from=i===0?'Fiumicino airport':T.stops[i-1].town;tr+='<tr><td>'+s.from+'</td><td>'+esc(from)+' → '+esc(s.town)+'</td><td>'+esc(s.getThere.how)+'</td><td>'+esc(s.getThere.time)+'</td><td class="r'+(/checking/.test(s.getThere.cost)?' pending':'')+'">'+esc(s.getThere.cost)+'</td></tr>';});
-  tr+='<tr><td>'+T.end.date+'</td><td>Rome → Civitavecchia</td><td colspan="2">'+esc(T.end.how)+'</td><td class="r">about $36</td></tr>';
+  tr+='<tr><td>'+T.end.date+'</td><td>Rome → Civitavecchia</td><td colspan="2">'+esc(T.end.how)+'</td><td class="r">$38</td></tr>';
   document.getElementById('trainTbl').innerHTML=tr;
 
   // car
@@ -191,6 +197,12 @@ footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
   T.tickets.forEach(function(t){tt+=t[2];tk+='<tr><td>'+esc(t[0])+'</td><td>'+esc(t[1])+'</td><td>'+esc(t[3])+'</td><td class="r">'+usd(t[2])+'</td></tr>';});
   tk+='<tr class="total"><td colspan="3">All tickets</td><td class="r">'+usd(tt)+'</td></tr>';
   document.getElementById('ticketTbl').innerHTML=tk;
+
+  // costs
+  var ct='<tr><th>What</th><th>Source</th><th class="r">USD</th></tr>',cs=0;
+  T.costs.forEach(function(c){cs+=c[1];ct+='<tr><td>'+esc(c[0])+'</td><td>'+esc(c[2])+'</td><td class="r">'+usd(c[1])+'</td></tr>';});
+  ct+='<tr class="total"><td colspan="2">Total for 3</td><td class="r">'+usd(cs)+'</td></tr><tr><td colspan="2">Per person</td><td class="r">'+usd(Math.round(cs/3))+'</td></tr>';
+  document.getElementById('costTbl').innerHTML=ct;
 
   // credits (only photos actually shown)
   document.getElementById('creditList').innerHTML=Object.keys(used).sort().map(function(k){var p=P[k];return'<div>'+esc(k.replace(/_/g,' '))+' — <a href="'+p.p+'" target="_blank" rel="noopener">'+esc(p.b)+'</a>, '+esc(p.l)+'</div>';}).join('');
