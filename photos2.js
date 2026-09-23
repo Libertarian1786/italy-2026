@@ -21,3 +21,7 @@ Object.assign(window.PHOTOS, {
 "Villa_Borghese":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Laghetto_and_Tempio_di_Esculapio_in_Villa_Borghese_04.jpg/960px-Laghetto_and_Tempio_di_Esculapio_in_Villa_Borghese_04.jpg","p":"https://commons.wikimedia.org/wiki/File:Laghetto_and_Tempio_di_Esculapio_in_Villa_Borghese_04.jpg","b":"Krzysztof Golik","l":"CC BY-SA 4.0"},
 "Colosseum_inside":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Colosseum_Arena_%285986632567%29.jpg/960px-Colosseum_Arena_%285986632567%29.jpg","p":"https://commons.wikimedia.org/wiki/File:Colosseum_Arena_(5986632567).jpg","b":"Erik Drost","l":"CC BY 2.0"}
 });
+Object.assign(window.PHOTOS, {
+"Montecatini":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Terme_tettuccio_montecatini_1.jpg/960px-Terme_tettuccio_montecatini_1.jpg","p":"https://commons.wikimedia.org/wiki/File:Terme_tettuccio_montecatini_1.jpg","b":"Michela.osteri","l":"CC BY-SA 4.0"},
+"Montecatini_Funicular":{"i":"https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Funicolare_di_Montecatini_Terme.jpg/960px-Funicolare_di_Montecatini_Terme.jpg","p":"https://commons.wikimedia.org/wiki/File:Funicolare_di_Montecatini_Terme.jpg","b":"Minnitre","l":"CC BY-SA 4.0"}
+});
