@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Italy 2026</title>
+<meta name="description" content="Sep 29 – Nov 1, 2026: seven stops by train, from Rome around Italy and back to the ship.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇮🇹</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--bg:#f7f3ec;--surface:#fffdf9;--ink:#23201b;--soft:#5d564c;--faint:#8b8378;--line:#e4dccf;--accent:#b4532a;--accent-soft:#f3e2d6;--green:#3f6b4a;--shadow:0 1px 3px rgba(40,30,20,.08),0 6px 20px rgba(40,30,20,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171513;--surface:#211e1a;--ink:#f1ece4;--soft:#c3bbb0;--faint:#948b80;--line:#37312a;--accent:#e08457;--accent-soft:#3a2a20;--green:#7fb08a;--shadow:none}}
+:root[data-theme="dark"]{--bg:#171513;--surface:#211e1a;--ink:#f1ece4;--soft:#c3bbb0;--faint:#948b80;--line:#37312a;--accent:#e08457;--accent-soft:#3a2a20;--green:#7fb08a;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Source Sans 3",system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header{padding:40px 0 16px}
+h1{font:700 clamp(34px,6vw,54px)/1.05 Fraunces,Georgia,serif;margin:0 0 8px}
+h2{font:700 30px/1.2 Fraunces,Georgia,serif;margin:0 0 6px}
+h3{font:700 22px/1.25 Fraunces,Georgia,serif;margin:0}
+.lead{color:var(--soft);font-size:19px;margin:0}
+nav{position:sticky;top:0;z-index:1000;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:18px;overflow-x:auto;padding-top:10px;padding-bottom:10px;white-space:nowrap}
+nav a{text-decoration:none;color:var(--soft);font-weight:600}
+nav a:hover{color:var(--accent)}
+section{padding:36px 0 8px}
+.sub{color:var(--soft);margin:0 0 18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+/* town list */
+.towns{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.town{text-decoration:none;color:inherit;display:block}
+.town img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--line)}
+.town .t{padding:12px 14px 14px}
+.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:14px;margin-right:6px;vertical-align:2px}
+.dates{color:var(--soft);font-weight:600;margin-top:4px}
+.nights{color:var(--faint);font-size:15px}
+#map{height:520px;border-radius:14px;border:1px solid var(--line)}
+.pin{background:var(--accent);color:#fff;border:2px solid #fff;border-radius:50%;width:30px!important;height:30px!important;display:grid;place-items:center;font:700 14px "Source Sans 3",sans-serif;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.pin.end{background:#2f4f6b}
+/* stop sections */
+.stop{margin-bottom:28px}
+.stop-hero{position:relative}
+.stop-hero img{width:100%;height:clamp(200px,34vw,340px);object-fit:cover;display:block}
+.stop-hero .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 18px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff}
+.stop-hero .cap h3{color:#fff;font-size:28px}
+.stop-hero .cap div{opacity:.92;font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.fact{background:var(--surface);padding:12px 16px}
+.fact .k{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:700}
+.fact .v{font-weight:600}
+.fact .n{color:var(--soft);font-size:15px}
+.days{padding:6px 16px 14px}
+.day{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.day:first-child{border-top:0}
+.day .d{font-weight:700;color:var(--accent)}
+.pics{display:flex;gap:8px;margin-top:10px;overflow-x:auto}
+.pics figure{margin:0;flex:0 0 auto}
+.pics img{height:130px;width:auto;max-width:230px;object-fit:cover;border-radius:8px;display:block;background:var(--line)}
+.houses{margin:0 16px 16px;padding:12px 14px;border-radius:10px;background:var(--accent-soft)}
+.houses b{color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+td.r,th.r{text-align:right;white-space:nowrap}
+.tbl{overflow-x:auto}
+.pending{color:var(--faint);font-style:italic}
+.total td{font-weight:700;border-bottom:0}
+.credits{font-size:14px;color:var(--faint);columns:2 260px}
+.credits div{break-inside:avoid;margin-bottom:4px}
+footer{padding:30px 0 50px;color:var(--faint);font-size:14px}
+@media (max-width:600px){.day{grid-template-columns:1fr;gap:4px}#map{height:420px}body{font-size:16px}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>Italy, by train</h1>
+  <p class="lead">Sep 29 – Nov 1, 2026 · 7 stops · 33 nights · Rome to Rome, then the ship from Civitavecchia.</p>
+</header>
+<nav><div class="wrap">
+  <a href="#towns">Towns & dates</a><a href="#map-sec">Map</a><a href="#plan">Day by day</a><a href="#hotels">Hotels</a><a href="#trains">Trains</a><a href="#car">Car</a><a href="#tickets">Tickets</a><a href="#credits">Photo credits</a>
+</div></nav>
+
+<main class="wrap">
+  <section id="towns">
+    <h2>Towns & dates</h2>
+    <p class="sub">Tap a town to jump to its days.</p>
+    <div class="towns" id="townGrid"></div>
+  </section>
+
+  <section id="map-sec">
+    <h2>Map</h2>
+    <p class="sub">Numbers are the order. Every move between towns is by train.</p>
+    <div id="map"></div>
+  </section>
+
+  <section id="plan">
+    <h2>Day by day</h2>
+    <p class="sub">Where you sleep, how you get there, what you see — and the houses to look at.</p>
+    <div id="stops"></div>
+  </section>
+
+  <section id="hotels">
+    <h2>Hotels</h2>
+    <p class="sub">Every room checked on Booking.com: a real bed for each of you (no sofa beds) and air conditioning. Nothing is booked yet.</p>
+    <div class="card tbl"><table id="hotelTbl"></table></div>
+    <p class="sub" style="margin-top:10px">On top, paid at the hotels: city tax about $395, plus 10% VAT at six of the seven (about $210). About $600 in all.</p>
+  </section>
+
+  <section id="trains">
+    <h2>Trains</h2>
+    <p class="sub">Live fares for 3 are being checked. Group fares (FrecciaFRIENDS) must be booked at least 15 days before each fast train.</p>
+    <div class="card tbl"><table id="trainTbl"></table></div>
+  </section>
+
+  <section id="car">
+    <h2>Car — Pescara, Tue Oct 13</h2>
+    <div class="card" style="padding:16px" id="carBox"></div>
+  </section>
+
+  <section id="tickets">
+    <h2>Tickets</h2>
+    <p class="sub">Prices for all 3 of you, official sites only.</p>
+    <div class="card tbl"><table id="ticketTbl"></table></div>
+  </section>
+
+  <section id="credits">
+    <h2>Photo credits</h2>
+    <p class="sub">All photos from Wikimedia Commons, shown under their licences.</p>
+    <div class="credits" id="creditList"></div>
+  </section>
+</main>
+<footer class="wrap" id="foot"></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="photos.js"></script>
+<script src="trip.js"></script>
+<script>
+(function(){
+  var T=window.TRIP,P=window.PHOTOS,used={};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function img(key,cls,alt){var p=P[key];if(!p)return'';used[key]=1;return'<img loading="lazy" src="'+p.i+'" alt="'+esc(alt||key.replace(/_/g,' '))+'"'+(cls?' class="'+cls+'"':'')+'>';}
+  function usd(n){return'$'+n.toLocaleString('en-US');}
+
+  // towns
+  var g=document.getElementById('townGrid'),h='';
+  T.stops.forEach(function(s){
+    h+='<a class="card town" href="#stop'+s.n+'">'+img(s.photo,'',s.town)+'<div class="t"><h3><span class="num">'+s.n+'</span>'+esc(s.town)+'</h3><div class="dates">'+s.from+' → '+s.to+'</div><div class="nights">'+s.nights+(s.nights>1?' nights':' night')+' · '+esc(s.sub)+'</div></div></a>';
+  });
+  h+='<a class="card town" href="#stop8">'+img(T.end.photo,'','Civitavecchia')+'<div class="t"><h3><span class="num" style="background:#2f4f6b">⚓</span>'+T.end.town+'</h3><div class="dates">'+T.end.date+'</div><div class="nights">Board the ship</div></div></a>';
+  g.innerHTML=h;
+
+  // stops + days
+  var st=document.getElementById('stops'),o='';
+  T.stops.forEach(function(s){
+    o+='<article class="card stop" id="stop'+s.n+'"><div class="stop-hero">'+img(s.photo,'',s.town)+'<div class="cap"><h3><span class="num">'+s.n+'</span>'+esc(s.town)+'</h3><div>'+s.from+' → '+s.to+' · '+s.nights+(s.nights>1?' nights':' night')+'</div></div></div>';
+    o+='<div class="facts">'
+      +'<div class="fact"><div class="k">Sleep</div><div class="v"><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a> · '+usd(s.hotel.total)+'</div><div class="n">'+esc(s.hotel.beds)+'. '+esc(s.hotel.note)+'</div></div>'
+      +'<div class="fact"><div class="k">Getting there</div><div class="v">'+esc(s.getThere.how)+'</div><div class="n">'+esc(s.getThere.time)+' · '+esc(s.getThere.cost)+'</div></div>'
+      +'<div class="fact"><div class="k">Weather</div><div class="v">'+esc(s.weather)+'</div><div class="n">10-year average, high / low</div></div></div>';
+    o+='<div class="days">';
+    T.days.filter(function(d){return d[1]===s.n;}).forEach(function(d){
+      o+='<div class="day"><div class="d">'+d[0]+'</div><div>'+esc(d[2])+(d[3].length?'<div class="pics">'+d[3].map(function(k){return'<figure>'+img(k)+'</figure>';}).join('')+'</div>':'')+'</div></div>';
+    });
+    o+='</div>'+(s.houses?'<div class="houses"><b>Houses under budget:</b> '+esc(s.houses)+'</div>':'')+'</article>';
+  });
+  var last=T.days[T.days.length-1];
+  o+='<article class="card stop" id="stop8"><div class="stop-hero">'+img(T.end.photo,'','Civitavecchia')+'<div class="cap"><h3><span class="num" style="background:#2f4f6b">⚓</span>Civitavecchia</h3><div>'+T.end.date+' · the ship</div></div></div><div class="days"><div class="day"><div class="d">'+last[0]+'</div><div>'+esc(T.end.how)+'</div></div></div></article>';
+  st.innerHTML=o;
+
+  // hotels
+  var ht='<tr><th>Dates</th><th>Town</th><th>Hotel</th><th>Beds</th><th class="r">Total</th></tr>',tot=0;
+  T.stops.forEach(function(s){tot+=s.hotel.total;ht+='<tr><td>'+s.from+' → '+s.to+'</td><td>'+esc(s.town)+'</td><td><a href="'+s.hotel.url+'" target="_blank" rel="noopener">'+esc(s.hotel.name)+'</a><div class="pending" style="font-style:normal;font-size:14px">'+esc(s.hotel.note)+'</div></td><td>'+esc(s.hotel.beds)+'</td><td class="r">'+usd(s.hotel.total)+'</td></tr>';});
+  ht+='<tr class="total"><td colspan="4">33 nights, all 3 of you</td><td class="r">'+usd(tot)+'</td></tr>';
+  document.getElementById('hotelTbl').innerHTML=ht;
+
+  // trains
+  var tr='<tr><th>Date</th><th>From → to</th><th>How</th><th>Time</th><th class="r">For 3</th></tr>';
+  T.stops.forEach(function(s,i){var from=i===0?'Fiumicino airport':T.stops[i-1].town;tr+='<tr><td>'+s.from+'</td><td>'+esc(from)+' → '+esc(s.town)+'</td><td>'+esc(s.getThere.how)+'</td><td>'+esc(s.getThere.time)+'</td><td class="r'+(/checking/.test(s.getThere.cost)?' pending':'')+'">'+esc(s.getThere.cost)+'</td></tr>';});
+  tr+='<tr><td>'+T.end.date+'</td><td>Rome → Civitavecchia</td><td colspan="2">'+esc(T.end.how)+'</td><td class="r">about $36</td></tr>';
+  document.getElementById('trainTbl').innerHTML=tr;
+
+  // car
+  var c=T.car;document.getElementById('carBox').innerHTML='<div style="font-weight:700;font-size:19px">'+esc(c.what)+' — '+usd(c.price)+' for the day</div><div class="sub" style="margin:6px 0 0">'+esc(c.where)+'. '+esc(c.note)+' Full zero-excess insurance: '+usd(c.full)+' instead (skip it if your credit card covers rentals).</div>';
+
+  // tickets
+  var tk='<tr><th>What</th><th>When</th><th>How to book</th><th class="r">For 3</th></tr>',tt=0;
+  T.tickets.forEach(function(t){tt+=t[2];tk+='<tr><td>'+esc(t[0])+'</td><td>'+esc(t[1])+'</td><td>'+esc(t[3])+'</td><td class="r">'+usd(t[2])+'</td></tr>';});
+  tk+='<tr class="total"><td colspan="3">All tickets</td><td class="r">'+usd(tt)+'</td></tr>';
+  document.getElementById('ticketTbl').innerHTML=tk;
+
+  // credits (only photos actually shown)
+  document.getElementById('creditList').innerHTML=Object.keys(used).sort().map(function(k){var p=P[k];return'<div>'+esc(k.replace(/_/g,' '))+' — <a href="'+p.p+'" target="_blank" rel="noopener">'+esc(p.b)+'</a>, '+esc(p.l)+'</div>';}).join('');
+  document.getElementById('foot').textContent='Updated '+T.updated+'. Dollar amounts at €1 = $1.1411. Map © OpenStreetMap contributors.';
+
+  // map
+  if(window.L){
+    var m=L.map('map',{scrollWheelZoom:false});
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(m);
+    var pts=T.stops.map(function(s){return[s.lat,s.lon];});pts.push([T.end.lat,T.end.lon]);
+    L.polyline(pts,{color:'#b4532a',weight:3,dashArray:'4 8',opacity:.9}).addTo(m);
+    T.stops.forEach(function(s){
+      var off=s.n===7?[14,-8]:[0,0];
+      var icon=L.divIcon({className:'',html:'<div class="pin" style="transform:translate('+off[0]+'px,'+off[1]+'px)">'+s.n+'</div>',iconSize:[30,30],iconAnchor:[15,15]});
+      L.marker([s.lat,s.lon],{icon:icon}).addTo(m).bindPopup('<b>'+s.n+'. '+esc(s.town)+'</b><br>'+s.from+' → '+s.to+'<br><a href="#stop'+s.n+'">See the days</a>');
+    });
+    L.marker([T.end.lat,T.end.lon],{icon:L.divIcon({className:'',html:'<div class="pin end">⚓</div>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(m).bindPopup('<b>Civitavecchia</b><br>'+T.end.date+' — the ship');
+    m.fitBounds(L.latLngBounds(pts).pad(0.08));
+  }
+})();
+</script>
+</body>
+</html>
