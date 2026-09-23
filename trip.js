@@ -11,7 +11,7 @@ window.TRIP = {
     { n:2, town:"Castiglione del Lago", sub:"Lake Trasimeno, Umbria", from:"Wed Sep 30", to:"Mon Oct 5", nights:5,
       lat:43.127, lon:12.051, photo:"Castiglione_del_Lago",
       hotel:{ name:"Le Macerine", status:"todo", access:{station:"26 min (1.9 km) to the station",centre:"16 min (1.0 km) to the old town",grocery:"16 min to Gala supermarket",kitchen:"Kitchenette listed at the property (not confirmed in this room)"}, url:"https://www.booking.com/hotel/it/le-macerine.html", beds:"twin + queen, private bathroom in the room, A/C, breakfast included", total:692, cancel:"Check on the page", note:"Rated 9.1 from 650 reviews. Walkable — no car needed." },
-      getThere:{ how:"Intercity + regional, Roma Termini 10:15 → 12:47", time:"2 h 32 min, 1 change", cost:"$67" },
+      getThere:{ how:"Regional trains, Roma Termini 11:45 → Orte 13:04, change (32 min) → Castiglione del Lago 15:24", time:"3 h 39 min, 1 change, fixed fare — no rush to book", cost:"$49" },
       weather:"73° / 56°F · 1 day in 10 over 80°F",
       houses:"7 houses for sale in and around town, $33,100 – $57,100.",
       alt:[{ name:"L'assiolo (only works with a car)", url:"https://www.booking.com/hotel/it/il-vivaio-castiglione-del-lago.html", total:396, beds:"2 bedrooms: queen / twin + full", note:"$294 cheaper, but out in the country — a 5-day automatic car (about $270–300 with fuel) cancels the saving, and there is no breakfast. Non-refundable.", access:{station:"46 min (3.4 km) to the station",centre:"1 h 11 min (5.2 km) to the old town",grocery:"41 min (3.1 km) to Eurospin",kitchen:"Yes — full kitchen"} }] },
@@ -52,7 +52,7 @@ window.TRIP = {
         how:"Metro or taxi to Roma San Pietro station, FL5 train to Civitavecchia (about 1 h, about $5 each), port shuttle $7 each or taxi." },
   days: [
     ["Tue Sep 29",1,"Land at 2:30 pm. Leonardo Express to Termini, 2 min walk to Cosmo GuestHouse (arrival 4–5 PM). Evening: Santa Maria Maggiore and dinner.",["Fiumicino","Santa_Maria_Maggiore"]],
-    ["Wed Sep 30",2,"Train to Castiglione del Lago, 10:15 → 12:47. Short taxi (or 26 min walk) to Le Macerine. Sunset on the lake.",["Lake_Trasimeno","Castiglione_lakefront"]],
+    ["Wed Sep 30",2,"Slow morning in Rome. 11:45 train from Termini (change at Orte) → Castiglione del Lago 15:24. 4-min taxi or 19-min walk to Le Macerine (check-in 3:30 PM). Sunset on the lake.",["Lake_Trasimeno","Castiglione_lakefront"]],
     ["Thu Oct 1",2,"Castiglione old town: the castle (Rocca del Leone) and Palazzo della Corgna. Walk past the houses for sale.",["Castiglione_del_Lago","Rocca_del_Leone","Palazzo_della_Corgna"]],
     ["Fri Oct 2",2,"Day trip to Cortona — hill town above the lake. Train to Camucia-Cortona (12 min) and the bus up.",["Cortona","Cortona_Piazza"]],
     ["Sat Oct 3",2,"Day trip to Assisi — the Basilica of St Francis. Train via Terontola.",["Assisi","Assisi_town"]],
@@ -91,7 +91,7 @@ window.TRIP = {
   costs:[
     ["Hotels, 33 nights",3919,"verified on Booking.com"],
     ["Hotel city tax + VAT (paid at hotels)",580,"estimate"],
-    ["Trains between towns + port shuttle",559,"live fares, 23 Sep"],
+    ["Trains between towns + port shuttle",541,"live fares, 23 Sep"],
     ["Day-trip trains and buses",419,"estimate"],
     ["Rental car day (automatic) + fuel + tolls",90,"live price + estimate"],
     ["Sightseeing tickets",479,"official prices"],
