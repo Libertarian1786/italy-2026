@@ -155,6 +155,20 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .tips li{padding:4px 0}
 .strike{padding:10px 14px;border-top:1px solid var(--line)}
 .strike.hit{background:var(--accent-soft)}
+/* mobile polish */
+.links{gap:8px;margin-top:10px}
+.links a{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border-radius:999px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:15px;line-height:1.2}
+.links a:active{filter:brightness(.92)}
+.item .price{max-width:48%;text-align:right;overflow-wrap:anywhere}
+.item .top .ttl{flex:1 1 auto}
+.pband{flex:0 0 auto;margin-left:auto;font-weight:700;color:var(--accent);letter-spacing:.02em}
+.bignum{flex-direction:column;align-items:flex-start;gap:4px}
+.bignum b{min-width:0;flex:0 0 auto;font-size:28px}
+.bignum b.long{font-size:24px}
+.bignum > div{min-width:0}
+.area>summary{min-height:56px}
+.tabs.more{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent)}
+.day .leave{font-size:15px}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:1 0 auto;min-width:66px;padding:0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -310,16 +324,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790264979"></script>
-<script src="photos2.js?v=1790264979"></script>
-<script src="listings.js?v=1790264979"></script>
-<script src="secure.js?v=1790264979"></script>
-<script src="trip.js?v=1790264979"></script>
-<script src="places.js?v=1790264979"></script>
-<script src="food.js?v=1790264979"></script>
-<script src="apps.js?v=1790264979"></script>
-<script src="beaches.js?v=1790264979"></script>
-<script src="info.js?v=1790264979"></script>
+<script src="photos.js?v=1790294061"></script>
+<script src="photos2.js?v=1790294061"></script>
+<script src="listings.js?v=1790294061"></script>
+<script src="secure.js?v=1790294061"></script>
+<script src="trip.js?v=1790294061"></script>
+<script src="places.js?v=1790294061"></script>
+<script src="food.js?v=1790294061"></script>
+<script src="apps.js?v=1790294061"></script>
+<script src="beaches.js?v=1790294061"></script>
+<script src="info.js?v=1790294061"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -430,13 +444,14 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     var sec='';a.restaurants.forEach(function(r){
       if(r.section&&r.section!==sec){sec=r.section;fh+='<div class="grp">'+esc(sec)+'</div>';}
       var q=encodeURIComponent(r.name+', '+(r.address||''));var bits=[r.closed?'Closed '+r.closed:'',r.booking?'Booking: '+r.booking:''].filter(Boolean);
-      fh+='<div class="item"><div class="top"><div class="ttl">'+esc(r.name)+'</div><div class="price">'+esc(r.price||'')+'</div></div>'+(r.order?'<div class="meta">🍽️ <b>Order:</b> '+esc(r.order)+'</div>':'')+(r.address?'<div class="meta">📍 '+esc(r.address)+'</div>':'')+(r.why?'<div class="note">'+esc(r.why)+'</div>':'')+(bits.length?'<div class="note">'+esc(bits.join(' · '))+'</div>':'')+'<div class="links"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">Google Maps ↗</a>'+(r.sources&&r.sources[0]?'<a href="'+esc(r.sources[0])+'" target="_blank" rel="noopener">Why ↗</a>':'')+'</div></div>';});
+      var pm=String(r.price||'').match(/^([€–\-]+)\s*(.*)$/),band=pm?pm[1].replace(/-/g,'–'):'',pd=(pm?pm[2]:String(r.price||'')).replace(/^\([^)]*\)\s*/,'').replace(/^[—;\-]\s*/,'').replace(/\s*\([^)]*\)/g,'').trim();
+      fh+='<div class="item"><div class="top"><div class="ttl">'+esc(r.name)+'</div>'+(band?'<div class="pband">'+esc(band)+'</div>':'')+'</div>'+(pd?'<div class="meta">💶 '+esc(pd)+'</div>':'')+(r.order?'<div class="meta">🍽️ <b>Order:</b> '+esc(r.order)+'</div>':'')+(r.address?'<div class="meta">📍 '+esc(r.address)+'</div>':'')+(r.why?'<div class="note">'+esc(r.why)+'</div>':'')+(bits.length?'<div class="note">'+esc(bits.join(' · '))+'</div>':'')+'<div class="links"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">Google Maps ↗</a>'+(r.sources&&r.sources[0]?'<a href="'+esc(r.sources[0])+'" target="_blank" rel="noopener">Why ↗</a>':'')+'</div></div>';});
     fh+='</details>';});
   el('foodAreas').innerHTML=fh||'<p class="sub">Being collected.</p>';
 
   // apps
   var ah='',AG={},AO=[];((window.APPS||{}).apps||[]).forEach(function(x){if(!AG[x.group]){AG[x.group]=[];AO.push(x.group);}AG[x.group].push(x);});
-  AO.forEach(function(g){ah+='<div class="card" style="margin-bottom:10px"><div class="grp">'+esc(g)+'</div>'+AG[g].map(function(x){return'<div class="item" style="border-top:1px solid var(--line)"><div class="top"><div class="ttl">'+esc(x.name)+'</div><div class="price" style="font-weight:600;color:var(--faint)">'+esc(x.cost||'')+'</div></div><div class="meta">'+esc(x['for']||'')+'</div>'+(x.tip?'<div class="note">Tip: '+esc(x.tip)+'</div>':'')+(x.android?'<div class="links"><a href="'+esc(x.android)+'" target="_blank" rel="noopener">Google Play ↗</a></div>':'')+'</div>';}).join('')+'</div>';});
+  AO.forEach(function(g){ah+='<div class="card" style="margin-bottom:10px"><div class="grp">'+esc(g)+'</div>'+AG[g].map(function(x){return'<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">'+esc(x.name)+'</div>'+(x.cost?'<div class="note" style="margin-top:0">'+esc(x.cost)+'</div>':'')+'<div class="meta">'+esc(x['for']||'')+'</div>'+(x.tip?'<div class="note">Tip: '+esc(x.tip)+'</div>':'')+(x.android?'<div class="links"><a href="'+esc(x.android)+'" target="_blank" rel="noopener">Google Play ↗</a></div>':'')+'</div>';}).join('')+'</div>';});
   el('appList').innerHTML=ah||'<p class="sub">Being collected.</p>';
 
   // trains
@@ -446,7 +461,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div>'+(s.n===4?'<div data-lock="train1010"></div>':s.n===5?'<div data-lock="train1014"></div>':s.n===6?'<div data-lock="train1021"></div>':s.n===7?'<div data-lock="train1025"></div>':'')+'</div>';});
   tl+='<div class="card item"><div class="top"><div class="ttl">Rome → Civitavecchia</div><div class="price">$38</div></div><div class="meta">'+T.end.date+'</div><div class="note">'+esc(T.end.how)+'</div></div>';
   el('trainList').innerHTML=tl;
-  var TB=T.toBuy;if(TB){var tb='<div class="grp">⏳ Still to buy — regional trains, same price any day, buy in the Trenitalia app before boarding</div>';
+  var TB=T.toBuy;if(TB){var tb='<div class="item"><div class="ttl">⏳ Still to buy</div><div class="note">Regional trains: the same price any day, so buy each one in the Trenitalia app before you board.</div></div>';
     TB.items.forEach(function(x){tb+='<div class="item" style="border-top:1px solid var(--line)"><div class="top"><div class="ttl">⏳ '+esc(x.date)+'</div><div class="price">'+(x.usd?'~'+usd(x.usd):'check')+'</div></div><div class="meta">'+esc(x.route)+(x.rt?' <span class="badge lo">round trip</span>':'')+'</div>'+(x.note?'<div class="note">'+esc(x.note)+'</div>':'')+'</div>';});
     tb+='<div class="sumrow total"><span>Still to buy (all 3 of you)</span><span>~'+usd(TB.total)+'</span></div>';el('toBuy').innerHTML=tb;}
 
@@ -479,13 +494,17 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   // tab highlight
   var tabs=[].slice.call(document.querySelectorAll('.tabs a'));
   var secs=tabs.map(function(a){return document.querySelector(a.getAttribute('href'));});
-  function onScroll(){var y=window.scrollY+window.innerHeight*0.35,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});tabs.forEach(function(a,i){a.classList.toggle('on',i===cur);});}
+  var nav=document.getElementById('tabs'),last=-1;
+  function navFade(){nav.classList.toggle('more',nav.scrollLeft+nav.clientWidth<nav.scrollWidth-4);}
+  nav.addEventListener('scroll',navFade,{passive:true});window.addEventListener('resize',navFade);
+  function onScroll(){var y=window.scrollY+window.innerHeight*0.35,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});tabs.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+    if(cur!==last){last=cur;var a=tabs[cur];nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});}navFade();}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
   // map: one-finger scroll moves the page on phones; pinch or +/- to zoom
   if(window.L){
     var touch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
-    var m=L.map('map',{scrollWheelZoom:false,dragging:!touch,tap:false});
+    var m=L.map('map',{scrollWheelZoom:false,dragging:!touch,tap:false,zoomSnap:0.25});
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(m);
     var pts=T.stops.map(function(s){return[s.lat,s.lon];});pts.push([T.end.lat,T.end.lon]);
     L.polyline(pts,{color:'#b4532a',weight:3,dashArray:'4 8',opacity:.9}).addTo(m);
@@ -495,7 +514,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
         .bindPopup('<b>'+s.n+'. '+esc(s.town)+'</b><br>'+s.from+' → '+s.to+'<br><a href="#stop'+s.n+'">See the days</a>');
     });
     L.marker([T.end.lat,T.end.lon],{icon:L.divIcon({className:'',html:'<div class="pin end">⚓</div>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(m).bindPopup('<b>Civitavecchia</b><br>'+T.end.date+' — the ship');
-    m.fitBounds(L.latLngBounds(pts).pad(0.06));
+    var fb=L.latLngBounds(pts).pad(0.04);m.fitBounds(fb);window.addEventListener('load',function(){m.invalidateSize();m.fitBounds(fb);});
     var groups={};LS.forEach(function(x){if(x.lat==null)return;var k=(+x.lat).toFixed(4)+','+(+x.lon).toFixed(4);(groups[k]=groups[k]||[]).push(x);});
     var hl=window.L.layerGroup().addTo(m),pinByKey={};
     Object.keys(groups).forEach(function(k){var g=groups[k],ll=k.split(',').map(Number);
@@ -531,7 +550,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   // help
   var E=I.emergency,S=I.strikes_tips,o='';
   if(E){o+='<details class="card area" id="hEmerg" open><summary>🆘 Emergency numbers<span class="cnt">▾</span></summary>';
-  if(E&&E.numbers)o+=E.numbers.map(function(n){return'<a class="bignum" href="tel:'+esc(n.num)+'"><b>'+esc(n.num)+'</b><div><div class="ttl">'+esc(n.what)+'</div>'+(n.note?'<div class="note">'+esc(n.note)+'</div>':'')+'</div></a>';}).join('');
+  if(E&&E.numbers)o+=E.numbers.map(function(n){return'<a class="bignum" href="tel:'+esc(n.num)+'"><b'+(n.num.length>6?' class="long"':'')+'>'+esc(n.num)+'</b><div><div class="ttl">'+esc(n.what)+'</div>'+(n.note?'<div class="note">'+esc(n.note)+'</div>':'')+'</div></a>';}).join('');
   if(E&&E.embassy)o+='<div class="grp">U.S. Embassy & consulates</div>'+E.embassy.map(function(x){return'<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">🇺🇸 '+esc(x.name)+'</div><div class="meta">📍 '+esc(x.addr)+'</div><div class="meta">📞 '+tel(x.phone)+(x.after_hours?' · after hours: '+tel(x.after_hours):'')+'</div><div class="links">'+(x.lat?'<a href="'+gm(x.lat,x.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a>':'')+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">Website ↗</a>':'')+'</div></div>';}).join('');
   o+='</details>';}
   if(E&&E.stays){o+='<details class="card area" id="hHosp"><summary>🏥 Hospital & pharmacy at each stop<span class="cnt">7 ▾</span></summary>';
