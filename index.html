@@ -310,16 +310,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790264321"></script>
-<script src="photos2.js?v=1790264321"></script>
-<script src="listings.js?v=1790264321"></script>
-<script src="secure.js?v=1790264321"></script>
-<script src="trip.js?v=1790264321"></script>
-<script src="places.js?v=1790264321"></script>
-<script src="food.js?v=1790264321"></script>
-<script src="apps.js?v=1790264321"></script>
-<script src="beaches.js?v=1790264321"></script>
-<script src="info.js?v=1790264321"></script>
+<script src="photos.js?v=1790264522"></script>
+<script src="photos2.js?v=1790264522"></script>
+<script src="listings.js?v=1790264522"></script>
+<script src="secure.js?v=1790264522"></script>
+<script src="trip.js?v=1790264522"></script>
+<script src="places.js?v=1790264522"></script>
+<script src="food.js?v=1790264522"></script>
+<script src="apps.js?v=1790264522"></script>
+<script src="beaches.js?v=1790264522"></script>
+<script src="info.js?v=1790264522"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -537,7 +537,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   if(E&&E.stays){o+='<details class="card area" id="hHosp"><summary>🏥 Hospital & pharmacy at each stop<span class="cnt">7 ▾</span></summary>';
     E.stays.forEach(function(s){var H=s.hospital||{},F=s.pharmacy||{},D=s.on_duty||{};
       o+='<div class="grp"><span class="num" style="width:20px;height:20px;font-size:11px">'+esc(s.n)+'</span>'+esc(s.stay)+'</div>';
-      if(H.name)o+='<div class="item"><div class="ttl">🏥 '+esc(H.name)+'</div><div class="meta">Emergency room (Pronto Soccorso), open 24 h'+(H.minutes?' · about '+esc(H.minutes)+' min by taxi':'')+'</div><div class="meta">📍 '+esc(H.addr)+'</div>'+(H.phone?'<div class="meta">📞 '+tel(H.phone)+'</div>':'')+(H.lat?'<div class="links"><a href="'+gm(H.lat,H.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(H.lat,H.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
+      if(H.name)o+='<div class="item"><div class="ttl">🏥 '+esc(H.name)+'</div><div class="meta">Emergency room (Pronto Soccorso), open 24 h'+(H.minutes?' · about '+esc(H.minutes)+' min by taxi':'')+'</div>'+(H.note?'<div class="note">'+esc(H.note)+'</div>':'')+'<div class="meta">📍 '+esc(H.addr)+'</div>'+(H.phone?'<div class="meta">📞 '+tel(H.phone)+'</div>':'')+(H.lat?'<div class="links"><a href="'+gm(H.lat,H.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(H.lat,H.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
       if(F.name)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">➕ '+esc(F.name)+'</div><div class="meta">📍 '+esc(F.addr)+'</div>'+(F.hours?'<div class="note">'+esc(F.hours)+'</div>':'')+(F.phone?'<div class="meta">📞 '+tel(F.phone)+'</div>':'')+(F.lat?'<div class="links"><a href="'+gm(F.lat,F.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(F.lat,F.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
       if(D.how)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">🌙 Night / Sunday pharmacy: '+esc(D.how)+'</div>'+(D.url?'<div class="links"><a href="'+esc(D.url)+'" target="_blank" rel="noopener">Find the open one ↗</a></div>':'')+'</div>';});
     o+='</details>';}
