@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#b4532a">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-title" content="Italy 2026">
 <title>Italy 2026</title>
 <meta name="description" content="Sep 29 – Nov 1, 2026: seven stops by train, from Rome around Italy and back to the ship.">
@@ -131,6 +132,27 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .status{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
 .status.paid{background:#3f6b4a;color:#fff}.status.todo{background:var(--line);color:var(--soft)}
 /* bottom tab bar */
+.todo{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-top:1px solid var(--line);cursor:pointer}
+.todo:first-child{border-top:0}
+.todo input{flex:0 0 auto;width:24px;height:24px;margin:2px 0 0;accent-color:var(--accent)}
+.todo .due{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;background:var(--accent-soft);color:var(--accent);margin-bottom:3px}
+.todo.done .ttl{text-decoration:line-through;color:var(--faint)}
+.todo.done .due{background:var(--line);color:var(--faint)}
+.todo .links a{position:relative;z-index:1}
+.bignum{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.bignum:first-child{border-top:0}
+.bignum b{font:700 26px/1 Fraunces,Georgia,serif;color:var(--accent);min-width:88px}
+.ph{padding:10px 14px;border-top:1px solid var(--line)}
+.ph .it{font-weight:700;font-size:17px}
+.ph .say{color:var(--accent);font-size:14px;font-style:italic}
+.ph .en{color:var(--soft);font-size:15px}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.signs div{padding:8px 14px;border-top:1px solid var(--line);font-size:15px}
+.signs div b{display:block}
+.tips{margin:0;padding:6px 14px 12px 32px}
+.tips li{padding:4px 0}
+.strike{padding:10px 14px;border-top:1px solid var(--line)}
+.strike.hit{background:var(--accent-soft)}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:1 0 auto;min-width:66px;padding:0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -165,6 +187,13 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div class="towns" id="townGrid"></div>
   </section>
 
+  <section id="todo">
+    <h2>To-do list</h2>
+    <p class="sub">What is still left to book or check, soonest first. Tap to tick one off (ticks are saved on this phone only).</p>
+    <div class="card" id="todoList"></div>
+    <details class="card area" style="margin-top:10px"><summary>✅ Already done<span class="cnt" id="doneCnt"></span></summary><div id="doneList"></div></details>
+  </section>
+
   <section id="map-sec">
     <h2>Map</h2>
     <p class="sub">Numbers are the order. Tap a pin for dates. Every move is by train.</p>
@@ -188,6 +217,12 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <h2>Food</h2>
     <p class="sub">For each area: what to try, and good places to eat it, with the dish to order. Addresses are exact — tap <b>Google Maps</b>.</p>
     <div id="foodAreas"></div>
+  </section>
+
+  <section id="help">
+    <h2>Help & tips</h2>
+    <p class="sub">Emergencies, the nearest hospital and pharmacy at every stop, strikes, money and daily tips, and Italian phrases.</p>
+    <div id="helpBody"></div>
   </section>
 
   <section id="houses">
@@ -253,25 +288,28 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
 <nav class="tabs" id="tabs">
   <a href="#towns"><span>📍</span>Towns</a>
+  <a href="#todo"><span>✅</span>To-do</a>
   <a href="#map-sec"><span>🗺️</span>Map</a>
   <a href="#plan"><span>📅</span>Days</a>
   <a href="#places"><span>🧭</span>GPS</a>
   <a href="#food"><span>🍝</span>Food</a>
   <a href="#hotels"><span>🏨</span>Bookings</a>
+  <a href="#help"><span>🆘</span>Help</a>
   <a href="#houses"><span>🏡</span>Houses</a>
   <a href="#apps"><span>📱</span>Apps</a>
   <a href="#costs"><span>💵</span>Cost</a>
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790263346"></script>
-<script src="photos2.js?v=1790263346"></script>
-<script src="listings.js?v=1790263346"></script>
-<script src="secure.js?v=1790263346"></script>
-<script src="trip.js?v=1790263346"></script>
-<script src="places.js?v=1790263346"></script>
-<script src="food.js?v=1790263346"></script>
-<script src="apps.js?v=1790263346"></script>
+<script src="photos.js?v=1790263805"></script>
+<script src="photos2.js?v=1790263805"></script>
+<script src="listings.js?v=1790263805"></script>
+<script src="secure.js?v=1790263805"></script>
+<script src="trip.js?v=1790263805"></script>
+<script src="places.js?v=1790263805"></script>
+<script src="food.js?v=1790263805"></script>
+<script src="apps.js?v=1790263805"></script>
+<script src="info.js?v=1790263805"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -460,6 +498,52 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     if(touch){var mp=el('map');mp.addEventListener('touchstart',function(e){if(e.touches.length>1)m.dragging.enable();},{passive:true});mp.addEventListener('touchend',function(){m.dragging.disable();},{passive:true});}
   }
 })();
+</script>
+<script>
+(function(){
+  var I=window.INFO;if(!I)return;
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function el(id){return document.getElementById(id);}
+  function lk(l){var ext=!/^#/.test(l[1]);return'<a href="'+esc(l[1])+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+esc(l[0])+(ext?' ↗':'')+'</a>';}
+  function gm(la,lo){return'https://www.google.com/maps/search/?api=1&query='+la+','+lo;}
+  function gd(la,lo){return'https://www.google.com/maps/dir/?api=1&destination='+la+','+lo;}
+  function tel(n){return n?'<a href="tel:'+esc(String(n).replace(/[^+\d]/g,''))+'">'+esc(n)+'</a>':'';}
+
+  // to-do (ticks kept on this device)
+  var st={};try{st=JSON.parse(localStorage.getItem('tripTodo')||'{}')||{};}catch(e){st={};}
+  function drawTodo(){el('todoList').innerHTML=I.todo.map(function(t){var d=!!st[t.id];
+    return'<label class="todo'+(d?' done':'')+'"><input type="checkbox" data-id="'+esc(t.id)+'"'+(d?' checked':'')+'><div><span class="due">'+esc(t.due)+'</span><div class="ttl">'+esc(t.what)+'</div><div class="note">'+esc(t.how)+'</div>'+(t.links.length?'<div class="links">'+t.links.map(lk).join('')+'</div>':'')+'</div></label>';}).join('');}
+  drawTodo();
+  el('todoList').addEventListener('change',function(e){var id=e.target.getAttribute('data-id');if(!id)return;st[id]=e.target.checked;try{localStorage.setItem('tripTodo',JSON.stringify(st));}catch(x){}drawTodo();});
+  el('doneCnt').textContent=I.done.length+' ▾';
+  el('doneList').innerHTML=I.done.map(function(d){return'<div class="item" style="border-top:1px solid var(--line)">✅ '+esc(d)+'</div>';}).join('');
+
+  // help
+  var E=I.emergency,S=I.strikes_tips,o='';
+  if(E){o+='<details class="card area" id="hEmerg" open><summary>🆘 Emergency numbers<span class="cnt">▾</span></summary>';
+  if(E&&E.numbers)o+=E.numbers.map(function(n){return'<a class="bignum" href="tel:'+esc(n.num)+'"><b>'+esc(n.num)+'</b><div><div class="ttl">'+esc(n.what)+'</div>'+(n.note?'<div class="note">'+esc(n.note)+'</div>':'')+'</div></a>';}).join('');
+  if(E&&E.embassy)o+='<div class="grp">U.S. Embassy & consulates</div>'+E.embassy.map(function(x){return'<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">🇺🇸 '+esc(x.name)+'</div><div class="meta">📍 '+esc(x.addr)+'</div><div class="meta">📞 '+tel(x.phone)+(x.after_hours?' · after hours: '+tel(x.after_hours):'')+'</div><div class="links">'+(x.lat?'<a href="'+gm(x.lat,x.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a>':'')+(x.url?'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">Website ↗</a>':'')+'</div></div>';}).join('');
+  o+='</details>';}
+  if(E&&E.stays){o+='<details class="card area" id="hHosp"><summary>🏥 Hospital & pharmacy at each stop<span class="cnt">7 ▾</span></summary>';
+    E.stays.forEach(function(s){var H=s.hospital||{},F=s.pharmacy||{},D=s.on_duty||{};
+      o+='<div class="grp"><span class="num" style="width:20px;height:20px;font-size:11px">'+esc(s.n)+'</span>'+esc(s.stay)+'</div>';
+      if(H.name)o+='<div class="item"><div class="ttl">🏥 '+esc(H.name)+'</div><div class="meta">Emergency room (Pronto Soccorso), open 24 h'+(H.minutes?' · about '+esc(H.minutes)+' min by taxi':'')+'</div><div class="meta">📍 '+esc(H.addr)+'</div>'+(H.phone?'<div class="meta">📞 '+tel(H.phone)+'</div>':'')+(H.lat?'<div class="links"><a href="'+gm(H.lat,H.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(H.lat,H.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
+      if(F.name)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">➕ '+esc(F.name)+'</div><div class="meta">📍 '+esc(F.addr)+'</div>'+(F.hours?'<div class="note">'+esc(F.hours)+'</div>':'')+(F.phone?'<div class="meta">📞 '+tel(F.phone)+'</div>':'')+(F.lat?'<div class="links"><a href="'+gm(F.lat,F.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(F.lat,F.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
+      if(D.how)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">🌙 Night / Sunday pharmacy: '+esc(D.how)+'</div>'+(D.url?'<div class="links"><a href="'+esc(D.url)+'" target="_blank" rel="noopener">Find the open one ↗</a></div>':'')+'</div>';});
+    o+='</details>';}
+  if(S&&S.strikes){o+='<details class="card area" id="hStrike"><summary>🚦 Strikes on your dates<span class="cnt">'+S.strikes.length+' ▾</span></summary>';
+    o+='<div class="item"><div class="note">Checked '+esc(S.checked)+' on the official Italian strike calendar. Strikes are announced at least 10 days ahead, so check again the week before each train day.</div><div class="links"><a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">Official strike calendar ↗</a></div></div>';
+    S.strikes.forEach(function(x){o+='<div class="strike'+(x.affects_us?' hit':'')+'"><div class="ttl">'+(x.affects_us?'⚠️ ':'')+esc(x.dates)+(x.hours?' · '+esc(x.hours):'')+'</div><div class="meta">'+esc(x.sector)+(x.who?' — '+esc(x.who):'')+'</div>'+(x.affects_us&&typeof x.affects_us==='string'?'<div class="note">'+esc(x.affects_us)+'</div>':'')+'</div>';});
+    if(S.guarantee)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">During a train strike</div><div class="note">'+esc(S.guarantee.weekday_windows)+(S.guarantee.long_distance?' '+esc(S.guarantee.long_distance):'')+'</div></div>';
+    if(S.franchigia&&S.franchigia.confirmed)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">✅ No transport strikes are allowed '+esc(S.franchigia.from)+' – '+esc(S.franchigia.to)+' (the holiday strike-free period), which covers the ship day.</div></div>';
+    o+='</details>';}
+  if(S&&S.tips){o+='<details class="card area" id="hTips"><summary>💶 Money & daily tips<span class="cnt">▾</span></summary><ul class="tips">'+S.tips.filter(function(t){return t.show!==false;}).map(function(t){return'<li>'+esc(t.text)+'</li>';}).join('')+'</ul></details>';}
+  o+='<details class="card area" id="hPhr"><summary>🗣️ Italian phrases<span class="cnt">▾</span></summary>';
+  I.phrases.forEach(function(g){o+='<div class="grp">'+esc(g.group)+'</div>'+g.items.map(function(p){return'<div class="ph"><div class="it">'+esc(p[0])+'</div><div class="say">'+esc(p[1])+'</div><div class="en">'+esc(p[2])+'</div></div>';}).join('');});
+  o+='<div class="grp">Words on signs</div><div class="signs">'+I.signs.map(function(s){return'<div><b>'+esc(s[0])+'</b>'+esc(s[1])+'</div>';}).join('')+'</div></details>';
+  el('helpBody').innerHTML=o;
+})();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
 </body>
 </html>
