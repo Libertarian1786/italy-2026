@@ -1,2 +1,141 @@
-// Generated from claude-workspace/italy_places/apps.json (Android only)
-window.APPS={"apps": [{"name": "Trenitalia", "group": "Trains", "for": "Book and hold tickets for Trenitalia trains between your stops, including the slower regional trains around Tuscany, Lake Trasimeno, and Abruzzo.", "cost": "Free app; pay per ticket", "tip": "Tickets bought in the app auto-validate for the specific train and time you chose, so there's no need to stamp them at the yellow platform machines — that's only for paper tickets bought at a counter or machine.", "android": "https://play.google.com/store/apps/details?id=com.lynxspa.prontotreno"}, {"name": "Italo: Italian Highspeed Train", "group": "Trains", "for": "Book Italo's high-speed trains, a private alternative to Trenitalia on routes such as Rome–Florence.", "cost": "Free app; pay per ticket", "tip": "Quickly compare Italo's price and time against Trenitalia for the same route before booking — one is often better.", "android": "https://play.google.com/store/apps/details?id=it.italotreno"}, {"name": "MooneyGo (myCicero)", "group": "Getting around", "for": "Buy Rome's ATAC metro/bus/tram tickets and passes from your phone, plus local transit tickets in other Italian cities on your route.", "cost": "Free app; pay per ticket or pass", "tip": "You may not need it for single rides in Rome: a contactless debit/credit card or phone tapped straight on the metro turnstile or bus/tram validator works as a ticket (covers 100 minutes of travel per tap on buses/trams; one ride only on the metro). Use this app for multi-day Roma passes, or if a validator is out of order.", "android": "https://play.google.com/store/apps/details?id=net.pluservice.myCicero"}, {"name": "itTaxi", "group": "Getting around", "for": "Request and pay for a licensed taxi by phone in most of the cities on your route.", "cost": "Free app; pay per ride", "tip": "Coverage is strongest in bigger cities; in small stops like Castiglione del Lago, it's just as easy to have your hotel call a local radio taxi.", "android": "https://play.google.com/store/apps/details?id=it.ud.microtek.ITTaxi"}, {"name": "Uber", "group": "Getting around", "for": "A familiar backup for rides in Rome and Florence — in Italy it books a licensed chauffeur (NCC) car rather than a private-driver ride like at home.", "cost": "Free app; pay per ride (usually pricier than a metered taxi)", "tip": "Don't count on it in smaller stops — coverage is thin to nonexistent in Lecce, Pescara/Montesilvano, and Salerno, so use itTaxi or a hotel-called taxi there instead.", "android": "https://play.google.com/store/apps/details?id=com.ubercab"}, {"name": "TuaGO", "group": "Getting around", "for": "TUA's official app for Abruzzo buses and trains — buy tickets for local buses around Pescara/Montesilvano, including the Pescara–Chieti area pass.", "cost": "Free app; pay per ticket", "tip": "TuaGO is actively replacing the older \"Tuabruzzo\" app through 2026; if your exact route isn't loaded yet, buy a paper ticket at a tabaccheria (newsstand) before boarding — tickets generally aren't sold on board.", "android": "https://play.google.com/store/apps/details?id=com.tuabruzzo.app"}, {"name": "Google Maps", "group": "Language & maps", "for": "Turn-by-turn walking/driving directions and public transit routing in every city and countryside stop on the trip.", "cost": "Free", "tip": "Download the offline map for each region (Rome, Tuscany/Umbria, Abruzzo, Puglia/Salento, Campania) before you go, so it still works without signal or on a limited data plan.", "android": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"}, {"name": "Google Translate", "group": "Language & maps", "for": "Translate menus, signs, and conversations with locals who don't speak English.", "cost": "Free", "tip": "Download the Italian offline language pack before you land, and use the camera mode to instantly translate a printed menu or sign.", "android": "https://play.google.com/store/apps/details?id=com.google.android.apps.translate"}, {"name": "TheFork", "group": "Food", "for": "Find and book restaurant tables across every city on the trip, with occasional discounts.", "cost": "Free app; you pay the restaurant directly (offers reduce the bill)", "tip": "Filter by the \"offer\" tag for last-minute discounted seatings, common for early or late dinner slots.", "android": "https://play.google.com/store/apps/details?id=com.lafourchette.lafourchette"}, {"name": "Xe Money Transfer & Currency", "group": "Money & phone", "for": "Check euro-to-dollar prices at a glance while shopping, tipping, or splitting a bill.", "cost": "Free", "tip": "Open it once on wifi so it caches current rates — it then keeps converting even offline.", "android": "https://play.google.com/store/apps/details?id=com.xe.currency"}, {"name": "Airalo: eSIM for travel & data", "group": "Money & phone", "for": "Buy an Italy or Europe eSIM data plan so the Pixel (and any unlocked iPhone) has mobile data without swapping a physical SIM.", "cost": "Paid (per-GB/per-day data plans)", "tip": "Before buying, check your own US carrier's international day-pass or travel plan first — for a lot of plans that's cheaper and simpler than a separate eSIM for a few weeks. Airalo needs a carrier-unlocked, eSIM-capable phone.", "android": "https://play.google.com/store/apps/details?id=com.mobillium.airalo"}, {"name": "112 Where ARE U", "group": "Safety", "for": "Italy's official 112 emergency app — when you call for help, it sends your GPS location straight to police/ambulance dispatch.", "cost": "Free", "tip": "Install it and grant location access before you need it, and fill in the in-case-of-emergency contact fields now, not during an emergency.", "android": "https://play.google.com/store/apps/details?id=it.Beta80Group.whereareu"}, {"name": "3B Meteo - Weather Forecasts", "group": "Safety", "for": "Local Italian weather and rain radar for each stop, from the Trasimeno countryside to the Adriatic coast.", "cost": "Free", "tip": "Check it the night before outdoor days (Pompeii, Paestum, the Colosseum, the Abruzzo drive) — hyper-local Italian forecasts beat generic weather apps for sudden regional showers.", "android": "https://play.google.com/store/apps/details?id=com.Meteosolutions.Meteo3b"}, {"name": "Booking.com", "group": "Booking & cruise", "for": "Hold and manage all the hotel reservations for the trip, and message hosts directly.", "cost": "Free", "tip": "The Trasimeno host asked to be contacted on WhatsApp instead of in-app messages — reply there so it doesn't get missed.", "android": "https://play.google.com/store/apps/details?id=com.booking"}, {"name": "WhatsApp", "group": "Booking & cruise", "for": "Message the host who asked to be reached this way, and call home over wifi for free.", "cost": "Free", "tip": "Set it up before you leave the US — many Italian B&B and apartment hosts message only through WhatsApp, not SMS or phone calls.", "android": "https://play.google.com/store/apps/details?id=com.whatsapp"}, {"name": "Norwegian Cruise Line", "group": "Booking & cruise", "for": "Complete online check-in, see the Norwegian Gem's daily schedule, and book onboard dining or shore excursions before boarding in Civitavecchia.", "cost": "Free", "tip": "Finish online check-in and download your boarding documents (sail pass/eDocs) in the app before you reach the port — it saves time at the terminal.", "android": "https://play.google.com/store/apps/details?id=com.nclh.ncl_mobile"}, {"name": "MyColosseum", "group": "Booking & cruise", "for": "The Colosseum Archaeological Park's own app — book your timed-entry Colosseum/Roman Forum/Palatine Hill ticket and get the free official audio guide.", "cost": "Free app; tickets paid", "tip": "Book as early as you can, especially for the Arena floor or Underground add-on — those slots sell out first.", "android": "https://play.google.com/store/apps/details?id=it.parcocolosseo.mycolosseum"}]};
+// Generated by claude-workspace/scripts/italy_build_places_food_apps.py
+window.APPS={
+"apps": [
+{
+"name": "Trenitalia",
+"group": "Trains",
+"for": "Book and hold tickets for Trenitalia trains between your stops, including the slower regional trains around Tuscany, Lake Trasimeno, and Abruzzo.",
+"cost": "Free app; pay per ticket",
+"tip": "Tickets bought in the app auto-validate for the specific train and time you chose, so there's no need to stamp them at the yellow platform machines — that's only for paper tickets bought at a counter or machine.",
+"android": "https://play.google.com/store/apps/details?id=com.lynxspa.prontotreno"
+},
+{
+"name": "Italo: Italian Highspeed Train",
+"group": "Trains",
+"for": "Book Italo's high-speed trains, a private alternative to Trenitalia on routes such as Rome–Florence.",
+"cost": "Free app; pay per ticket",
+"tip": "Quickly compare Italo's price and time against Trenitalia for the same route before booking — one is often better.",
+"android": "https://play.google.com/store/apps/details?id=it.italotreno"
+},
+{
+"name": "MooneyGo (myCicero)",
+"group": "Getting around",
+"for": "Buy Rome's ATAC metro/bus/tram tickets and passes from your phone, plus local transit tickets in other Italian cities on your route.",
+"cost": "Free app; pay per ticket or pass",
+"tip": "You may not need it for single rides in Rome: a contactless debit/credit card or phone tapped straight on the metro turnstile or bus/tram validator works as a ticket (covers 100 minutes of travel per tap on buses/trams; one ride only on the metro). Use this app for multi-day Roma passes, or if a validator is out of order.",
+"android": "https://play.google.com/store/apps/details?id=net.pluservice.myCicero"
+},
+{
+"name": "itTaxi",
+"group": "Getting around",
+"for": "Request and pay for a licensed taxi by phone in most of the cities on your route.",
+"cost": "Free app; pay per ride",
+"tip": "Coverage is strongest in bigger cities; in small stops like Castiglione del Lago, it's just as easy to have your hotel call a local radio taxi.",
+"android": "https://play.google.com/store/apps/details?id=it.ud.microtek.ITTaxi"
+},
+{
+"name": "Uber",
+"group": "Getting around",
+"for": "A familiar backup for rides in Rome and Florence — in Italy it books a licensed chauffeur (NCC) car rather than a private-driver ride like at home.",
+"cost": "Free app; pay per ride (usually pricier than a metered taxi)",
+"tip": "Don't count on it in smaller stops — coverage is thin to nonexistent in Lecce, Pescara/Montesilvano, and Salerno, so use itTaxi or a hotel-called taxi there instead.",
+"android": "https://play.google.com/store/apps/details?id=com.ubercab"
+},
+{
+"name": "TuaGO",
+"group": "Getting around",
+"for": "TUA's official app for Abruzzo buses and trains — buy tickets for local buses around Pescara/Montesilvano, including the Pescara–Chieti area pass.",
+"cost": "Free app; pay per ticket",
+"tip": "TuaGO is actively replacing the older \"Tuabruzzo\" app through 2026; if your exact route isn't loaded yet, buy a paper ticket at a tabaccheria (newsstand) before boarding — tickets generally aren't sold on board.",
+"android": "https://play.google.com/store/apps/details?id=com.tuabruzzo.app"
+},
+{
+"name": "Google Maps",
+"group": "Language & maps",
+"for": "Turn-by-turn walking/driving directions and public transit routing in every city and countryside stop on the trip.",
+"cost": "Free",
+"tip": "Download the offline map for each region (Rome, Tuscany/Umbria, Abruzzo, Puglia/Salento, Campania) before you go, so it still works without signal or on a limited data plan.",
+"android": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+},
+{
+"name": "Google Translate",
+"group": "Language & maps",
+"for": "Translate menus, signs, and conversations with locals who don't speak English.",
+"cost": "Free",
+"tip": "Download the Italian offline language pack before you land, and use the camera mode to instantly translate a printed menu or sign.",
+"android": "https://play.google.com/store/apps/details?id=com.google.android.apps.translate"
+},
+{
+"name": "TheFork",
+"group": "Food",
+"for": "Find and book restaurant tables across every city on the trip, with occasional discounts.",
+"cost": "Free app; you pay the restaurant directly (offers reduce the bill)",
+"tip": "Filter by the \"offer\" tag for last-minute discounted seatings, common for early or late dinner slots.",
+"android": "https://play.google.com/store/apps/details?id=com.lafourchette.lafourchette"
+},
+{
+"name": "Xe Money Transfer & Currency",
+"group": "Money & phone",
+"for": "Check euro-to-dollar prices at a glance while shopping, tipping, or splitting a bill.",
+"cost": "Free",
+"tip": "Open it once on wifi so it caches current rates — it then keeps converting even offline.",
+"android": "https://play.google.com/store/apps/details?id=com.xe.currency"
+},
+{
+"name": "Airalo: eSIM for travel & data",
+"group": "Money & phone",
+"for": "Buy an Italy or Europe eSIM data plan so the Pixel (and any unlocked iPhone) has mobile data without swapping a physical SIM.",
+"cost": "Paid (per-GB/per-day data plans)",
+"tip": "Before buying, check your own US carrier's international day-pass or travel plan first — for a lot of plans that's cheaper and simpler than a separate eSIM for a few weeks. Airalo needs a carrier-unlocked, eSIM-capable phone.",
+"android": "https://play.google.com/store/apps/details?id=com.mobillium.airalo"
+},
+{
+"name": "112 Where ARE U",
+"group": "Safety",
+"for": "Italy's official 112 emergency app — when you call for help, it sends your GPS location straight to police/ambulance dispatch.",
+"cost": "Free",
+"tip": "Install it and grant location access before you need it, and fill in the in-case-of-emergency contact fields now, not during an emergency.",
+"android": "https://play.google.com/store/apps/details?id=it.Beta80Group.whereareu"
+},
+{
+"name": "3B Meteo - Weather Forecasts",
+"group": "Safety",
+"for": "Local Italian weather and rain radar for each stop, from the Trasimeno countryside to the Adriatic coast.",
+"cost": "Free",
+"tip": "Check it the night before outdoor days (Pompeii, Paestum, the Colosseum, the Abruzzo drive) — hyper-local Italian forecasts beat generic weather apps for sudden regional showers.",
+"android": "https://play.google.com/store/apps/details?id=com.Meteosolutions.Meteo3b"
+},
+{
+"name": "Booking.com",
+"group": "Booking & cruise",
+"for": "Hold and manage all the hotel reservations for the trip, and message hosts directly.",
+"cost": "Free",
+"tip": "The Trasimeno host asked to be contacted on WhatsApp instead of in-app messages — reply there so it doesn't get missed.",
+"android": "https://play.google.com/store/apps/details?id=com.booking"
+},
+{
+"name": "WhatsApp",
+"group": "Booking & cruise",
+"for": "Message the host who asked to be reached this way, and call home over wifi for free.",
+"cost": "Free",
+"tip": "Set it up before you leave the US — many Italian B&B and apartment hosts message only through WhatsApp, not SMS or phone calls.",
+"android": "https://play.google.com/store/apps/details?id=com.whatsapp"
+},
+{
+"name": "Norwegian Cruise Line",
+"group": "Booking & cruise",
+"for": "Complete online check-in, see the Norwegian Gem's daily schedule, and book onboard dining or shore excursions before boarding in Civitavecchia.",
+"cost": "Free",
+"tip": "Finish online check-in and download your boarding documents (sail pass/eDocs) in the app before you reach the port — it saves time at the terminal.",
+"android": "https://play.google.com/store/apps/details?id=com.nclh.ncl_mobile"
+},
+{
+"name": "MyColosseum",
+"group": "Booking & cruise",
+"for": "The Colosseum Archaeological Park's own app — book your timed-entry Colosseum/Roman Forum/Palatine Hill ticket and get the free official audio guide.",
+"cost": "Free app; tickets paid",
+"tip": "Book as early as you can, especially for the Arena floor or Underground add-on — those slots sell out first.",
+"android": "https://play.google.com/store/apps/details?id=it.parcocolosseo.mycolosseum"
+}
+]
+};

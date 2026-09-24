@@ -113,6 +113,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .area .cnt{margin-left:auto;color:var(--faint);font-weight:600;font-size:14px}
 .area .item{border-top:1px solid var(--line);border-radius:0}
 .links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:6px;font-weight:700;font-size:15px}
+.leave{margin-top:6px;padding:8px 10px;border-radius:10px;background:var(--accent-soft);color:var(--ink);font-size:15px;font-weight:600}
 .try{margin:6px 0 0;padding-left:18px;color:var(--soft);font-size:15px}.try li{margin:3px 0}
 .gps{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--faint);user-select:all}
 .grp{padding:10px 14px 4px;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:700}
@@ -173,7 +174,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   <section id="plan">
     <h2>Day by day</h2>
-    <p class="sub">Tap a town to open or close it. Swipe the photos.</p>
+    <p class="sub">Tap a town to open or close it. Swipe the photos. 🕒 = when to leave the hotel — set for an easy walking pace with 15–25 minutes to spare at the station (more on days with bags).</p>
     <div id="stops"></div>
   </section>
 
@@ -262,14 +263,14 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790221854"></script>
-<script src="photos2.js?v=1790221854"></script>
-<script src="listings.js?v=1790221854"></script>
-<script src="secure.js?v=1790221854"></script>
-<script src="trip.js?v=1790221854"></script>
-<script src="places.js?v=1790221854"></script>
-<script src="food.js?v=1790221854"></script>
-<script src="apps.js?v=1790221854"></script>
+<script src="photos.js?v=1790224334"></script>
+<script src="photos2.js?v=1790224334"></script>
+<script src="listings.js?v=1790224334"></script>
+<script src="secure.js?v=1790224334"></script>
+<script src="trip.js?v=1790224334"></script>
+<script src="places.js?v=1790224334"></script>
+<script src="food.js?v=1790224334"></script>
+<script src="apps.js?v=1790224334"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -303,7 +304,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
       +'<div class="fact"><div class="k">Getting there</div><div class="v">'+esc(s.getThere.time)+' · '+esc(s.getThere.cost)+'</div><div class="n">'+esc(s.getThere.how)+'</div></div>'
       +'<div class="fact"><div class="k">Weather</div><div class="v">'+esc(s.weather)+'</div><div class="n">10-year average</div></div></div>';
     T.days.filter(function(d){return d[1]===s.n;}).forEach(function(d){
-      o+='<div class="day" data-date="'+d[0]+'"><div class="d">'+d[0]+'</div><div>'+esc(d[2])+'</div>'+(d[3].length?'<div class="pics">'+d[3].map(function(k){return img(k);}).join('')+'</div>':'')+'</div>';
+      o+='<div class="day" data-date="'+d[0]+'"><div class="d">'+d[0]+'</div><div>'+esc(d[2])+'</div>'+(d[4]?'<div class="leave">🕒 '+esc(d[4])+'</div>':'')+(d[3].length?'<div class="pics">'+d[3].map(function(k){return img(k);}).join('')+'</div>':'')+'</div>';
     });
     var nL=LS.filter(function(x){return AREA[x.area]===s.n;}).length;
     o+=(s.houses?'<div class="houses"><b>Houses under budget:</b> '+esc(s.houses)+(nL?'<div class="links"><a href="#area'+s.n+'">See '+nL+' listings for sale ›</a></div>':'')+'</div>':'');
@@ -393,7 +394,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var tl='';
   T.stops.forEach(function(s,i){var from=i===0?'Airport':T.stops[i-1].town,w=/checking/.test(s.getThere.cost);
     var italo=/Italo/.test(s.getThere.how),buy=italo?'https://www.italotreno.com/en':'https://www.trenitalia.com/en.html';
-    tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div></div>';});
+    tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div>'+(s.n===4?'<div data-lock="train1010"></div>':'')+'</div>';});
   tl+='<div class="card item"><div class="top"><div class="ttl">Rome → Civitavecchia</div><div class="price">$38</div></div><div class="meta">'+T.end.date+'</div><div class="note">'+esc(T.end.how)+'</div></div>';
   el('trainList').innerHTML=tl;
 
