@@ -216,6 +216,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
       <div class="links"><a href="https://www.italotreno.com/en" target="_blank" rel="noopener">Website ↗</a><a href="https://play.google.com/store/apps/details?id=it.italotreno" target="_blank" rel="noopener">Android app ↗</a></div>
       <div class="note">Regional trains (RV/RE) have fixed prices and no seat reservation — buy any time, even on the day. In the app the ticket is on your phone; paper tickets from station machines must be stamped in the green/yellow validator before boarding.</div>
     </div>
+    <div class="card" id="toBuy" style="margin-bottom:10px"></div>
     <div class="list" id="trainList"></div>
   </section>
 
@@ -263,14 +264,14 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790227401"></script>
-<script src="photos2.js?v=1790227401"></script>
-<script src="listings.js?v=1790227401"></script>
-<script src="secure.js?v=1790227401"></script>
-<script src="trip.js?v=1790227401"></script>
-<script src="places.js?v=1790227401"></script>
-<script src="food.js?v=1790227401"></script>
-<script src="apps.js?v=1790227401"></script>
+<script src="photos.js?v=1790262224"></script>
+<script src="photos2.js?v=1790262224"></script>
+<script src="listings.js?v=1790262224"></script>
+<script src="secure.js?v=1790262224"></script>
+<script src="trip.js?v=1790262224"></script>
+<script src="places.js?v=1790262224"></script>
+<script src="food.js?v=1790262224"></script>
+<script src="apps.js?v=1790262224"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -397,6 +398,9 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div>'+(s.n===4?'<div data-lock="train1010"></div>':s.n===5?'<div data-lock="train1014"></div>':s.n===6?'<div data-lock="train1021"></div>':s.n===7?'<div data-lock="train1025"></div>':'')+'</div>';});
   tl+='<div class="card item"><div class="top"><div class="ttl">Rome → Civitavecchia</div><div class="price">$38</div></div><div class="meta">'+T.end.date+'</div><div class="note">'+esc(T.end.how)+'</div></div>';
   el('trainList').innerHTML=tl;
+  var TB=T.toBuy;if(TB){var tb='<div class="grp">⏳ Still to buy — regional trains, same price any day, buy in the Trenitalia app before boarding</div>';
+    TB.items.forEach(function(x){tb+='<div class="item" style="border-top:1px solid var(--line)"><div class="top"><div class="ttl">⏳ '+esc(x.date)+'</div><div class="price">'+(x.usd?'~'+usd(x.usd):'check')+'</div></div><div class="meta">'+esc(x.route)+(x.rt?' <span class="badge lo">round trip</span>':'')+'</div>'+(x.note?'<div class="note">'+esc(x.note)+'</div>':'')+'</div>';});
+    tb+='<div class="sumrow total"><span>Still to buy (all 3 of you)</span><span>~'+usd(TB.total)+'</span></div>';el('toBuy').innerHTML=tb;}
 
   // car
   var c=T.car;el('carBox').innerHTML='<div class="top"><div class="ttl">'+esc(c.what)+'</div><div class="price">'+usd(c.price)+'</div></div><div class="meta">'+esc(c.where)+'</div><div class="note">'+esc(c.note)+' Full zero-excess insurance: '+usd(c.full)+' instead — skip it if your credit card covers rentals.</div>';
