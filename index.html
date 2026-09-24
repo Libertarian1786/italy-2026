@@ -324,16 +324,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790294061"></script>
-<script src="photos2.js?v=1790294061"></script>
-<script src="listings.js?v=1790294061"></script>
-<script src="secure.js?v=1790294061"></script>
-<script src="trip.js?v=1790294061"></script>
-<script src="places.js?v=1790294061"></script>
-<script src="food.js?v=1790294061"></script>
-<script src="apps.js?v=1790294061"></script>
-<script src="beaches.js?v=1790294061"></script>
-<script src="info.js?v=1790294061"></script>
+<script src="photos.js?v=1790294144"></script>
+<script src="photos2.js?v=1790294144"></script>
+<script src="listings.js?v=1790294144"></script>
+<script src="secure.js?v=1790294144"></script>
+<script src="trip.js?v=1790294144"></script>
+<script src="places.js?v=1790294144"></script>
+<script src="food.js?v=1790294144"></script>
+<script src="apps.js?v=1790294144"></script>
+<script src="beaches.js?v=1790294144"></script>
+<script src="info.js?v=1790294144"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -443,7 +443,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     if(a.foods_to_try&&a.foods_to_try.length)fh+='<div class="item"><div class="ttl">😋 Try while you are here</div><ul class="try">'+a.foods_to_try.map(function(f){return'<li><b>'+esc(f.food)+'</b> — '+esc(f.what)+'</li>';}).join('')+'</ul></div>';
     var sec='';a.restaurants.forEach(function(r){
       if(r.section&&r.section!==sec){sec=r.section;fh+='<div class="grp">'+esc(sec)+'</div>';}
-      var q=encodeURIComponent(r.name+', '+(r.address||''));var bits=[r.closed?'Closed '+r.closed:'',r.booking?'Booking: '+r.booking:''].filter(Boolean);
+      var q=encodeURIComponent(r.name+', '+(r.address||''));var bits=[r.closed?(/^(open|closed)/i.test(r.closed)?r.closed:'Closed '+r.closed):'',r.booking?'Booking: '+r.booking:''].filter(Boolean);
       var pm=String(r.price||'').match(/^([€–\-]+)\s*(.*)$/),band=pm?pm[1].replace(/-/g,'–'):'',pd=(pm?pm[2]:String(r.price||'')).replace(/^\([^)]*\)\s*/,'').replace(/^[—;\-]\s*/,'').replace(/\s*\([^)]*\)/g,'').trim();
       fh+='<div class="item"><div class="top"><div class="ttl">'+esc(r.name)+'</div>'+(band?'<div class="pband">'+esc(band)+'</div>':'')+'</div>'+(pd?'<div class="meta">💶 '+esc(pd)+'</div>':'')+(r.order?'<div class="meta">🍽️ <b>Order:</b> '+esc(r.order)+'</div>':'')+(r.address?'<div class="meta">📍 '+esc(r.address)+'</div>':'')+(r.why?'<div class="note">'+esc(r.why)+'</div>':'')+(bits.length?'<div class="note">'+esc(bits.join(' · '))+'</div>':'')+'<div class="links"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">Google Maps ↗</a>'+(r.sources&&r.sources[0]?'<a href="'+esc(r.sources[0])+'" target="_blank" rel="noopener">Why ↗</a>':'')+'</div></div>';});
     fh+='</details>';});
@@ -558,7 +558,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
       o+='<div class="grp"><span class="num" style="width:20px;height:20px;font-size:11px">'+esc(s.n)+'</span>'+esc(s.stay)+'</div>';
       if(H.name)o+='<div class="item"><div class="ttl">🏥 '+esc(H.name)+'</div><div class="meta">Emergency room (Pronto Soccorso), open 24 h'+(H.minutes?' · about '+esc(H.minutes)+' min by taxi':'')+'</div>'+(H.note?'<div class="note">'+esc(H.note)+'</div>':'')+'<div class="meta">📍 '+esc(H.addr)+'</div>'+(H.phone?'<div class="meta">📞 '+tel(H.phone)+'</div>':'')+(H.lat?'<div class="links"><a href="'+gm(H.lat,H.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(H.lat,H.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
       if(F.name)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">➕ '+esc(F.name)+'</div><div class="meta">📍 '+esc(F.addr)+'</div>'+(F.hours?'<div class="note">'+esc(F.hours)+'</div>':'')+(F.phone?'<div class="meta">📞 '+tel(F.phone)+'</div>':'')+(F.lat?'<div class="links"><a href="'+gm(F.lat,F.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(F.lat,F.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';
-      if(D.how)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">🌙 Night / Sunday pharmacy: '+esc(D.how)+'</div>'+(D.url?'<div class="links"><a href="'+esc(D.url)+'" target="_blank" rel="noopener">Find the open one ↗</a></div>':'')+'</div>';});
+      if(D.how)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">🌙 '+esc(D.how)+'</div>'+(D.url?'<div class="links"><a href="'+esc(D.url)+'" target="_blank" rel="noopener">Find the open one ↗</a></div>':'')+'</div>';});
     o+='</details>';}
   if(S&&S.strikes){o+='<details class="card area" id="hStrike"><summary>🚦 Strikes on your dates<span class="cnt">'+S.strikes.length+' ▾</span></summary>';
     o+='<div class="item"><div class="note">Checked '+esc(S.checked)+' on the official Italian strike calendar. Strikes are announced at least 10 days ahead, so check again the week before each train day.</div><div class="links"><a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">Official strike calendar ↗</a></div></div>';
