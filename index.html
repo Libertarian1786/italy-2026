@@ -263,14 +263,14 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790226609"></script>
-<script src="photos2.js?v=1790226609"></script>
-<script src="listings.js?v=1790226609"></script>
-<script src="secure.js?v=1790226609"></script>
-<script src="trip.js?v=1790226609"></script>
-<script src="places.js?v=1790226609"></script>
-<script src="food.js?v=1790226609"></script>
-<script src="apps.js?v=1790226609"></script>
+<script src="photos.js?v=1790227401"></script>
+<script src="photos2.js?v=1790227401"></script>
+<script src="listings.js?v=1790227401"></script>
+<script src="secure.js?v=1790227401"></script>
+<script src="trip.js?v=1790227401"></script>
+<script src="places.js?v=1790227401"></script>
+<script src="food.js?v=1790227401"></script>
+<script src="apps.js?v=1790227401"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -394,7 +394,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var tl='';
   T.stops.forEach(function(s,i){var from=i===0?'Airport':T.stops[i-1].town,w=/checking/.test(s.getThere.cost);
     var italo=/Italo/.test(s.getThere.how),buy=italo?'https://www.italotreno.com/en':'https://www.trenitalia.com/en.html';
-    tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div>'+(s.n===4?'<div data-lock="train1010"></div>':s.n===5?'<div data-lock="train1014"></div>':s.n===6?'<div data-lock="train1021"></div>':'')+'</div>';});
+    tl+='<div class="card item"><div class="top"><div class="ttl">'+esc(from)+' → '+esc(s.town)+'</div><div class="price'+(w?' wait':'')+'">'+esc(s.getThere.cost)+'</div></div><div class="meta">'+s.from+' · '+esc(s.getThere.time)+'</div><div class="note">'+esc(s.getThere.how)+'</div><div class="links"><a href="'+buy+'" target="_blank" rel="noopener">Buy on '+(italo?'Italo':'Trenitalia')+' ↗</a></div>'+(s.n===4?'<div data-lock="train1010"></div>':s.n===5?'<div data-lock="train1014"></div>':s.n===6?'<div data-lock="train1021"></div>':s.n===7?'<div data-lock="train1025"></div>':'')+'</div>';});
   tl+='<div class="card item"><div class="top"><div class="ttl">Rome → Civitavecchia</div><div class="price">$38</div></div><div class="meta">'+T.end.date+'</div><div class="note">'+esc(T.end.how)+'</div></div>';
   el('trainList').innerHTML=tl;
 

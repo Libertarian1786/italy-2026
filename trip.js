@@ -44,7 +44,7 @@ window.TRIP = {
     { n:7, town:"Rome", sub:"Trastevere", from:"Sun Oct 25", to:"Sun Nov 1", nights:7,
       lat:41.8864, lon:12.4692, photo:"Trastevere",
       hotel:{ name:"Trastevere Luxury Suites", status:"paid", paid:1460, phone:"+39 389 526 3229", email:"", access:{station:"25 min (1.8 km) to Roma Trastevere station (direct trains to Civitavecchia) · Termini 15 min by taxi",centre:"25 min to the Pantheon · 34 min to Trevi · 37 min to the Colosseum · 44 min to the Vatican Museums",grocery:"4 min to Carrefour Express · 5 min to Conad",kitchen:"Yes — stovetop, fridge, microwave, pots and dishes"}, url:"https://www.booking.com/hotel/it/trastevere-luxury-suites.html", beds:"twin + queen, private bathroom in the room, A/C, kitchen, patio", total:1460, cancel:"Non-refundable", note:"Paid €1,279.54. City tax €126 paid at check-in. Room ready 4 PM (24-hour front desk, arrival set 11 AM–12 PM). Check-out by 10 AM. Via Roma Libera 10, Trastevere. Rated 8.7 from 38 reviews." },
-      getThere:{ how:"Italo, Salerno 8:37 → Roma Termini 10:45 (price rises as seats sell), then taxi 15 min to Trastevere", time:"2 h 08 min, direct", cost:"$68" },
+      getThere:{ how:"✅ Bought (€59.70): Italo train 8910, Salerno 8:37 → Roma Termini 10:45 — Smart, coach 4, seats 37/38/39. Then taxi 15 min to Trastevere", time:"2 h 08 min, direct", cost:"$68" },
       weather:"71° / 55°F · rain about 2 days in 5",
       houses:"Segni (39 min by train): $13,700 – $54,800." }
   ],
@@ -77,7 +77,7 @@ window.TRIP = {
     ["Thu Oct 22",6,"Pompeii — book ahead ($23 each; open 9 am – 7:30 pm, last entry 6 pm). About 40 min by train.",["Pompeii","Pompeii_Forum"],"Leave Salernoway at 8:30 for the 9:07 train to Pompei (arrive 9:49)."],
     ["Fri Oct 23",6,"Paestum — Greek temples ($17 each, no booking). 30 min by train.",["Paestum","Paestum_Neptune"],"Leave Salernoway at 8:55 for the 9:32 train to Paestum (arrive 10:02)."],
     ["Sat Oct 24",6,"Salerno old town: cathedral, Minerva medieval garden, seafront.",["Salerno_Cathedral","Giardino_della_Minerva"]],
-    ["Sun Oct 25",7,"Italo train to Rome, 8:37 → 10:45, taxi 15 min to Trastevere Luxury Suites (bags at the 24-hour desk; room ready 4 PM). Afternoon walk to Castel Sant'Angelo.",["Castel_Sant_Angelo"],"Leave Salernoway at 8:00 with bags (5-min walk) for the 8:37 Italo train."],
+    ["Sun Oct 25",7,"Italo train to Rome, 8:37 → 10:45, taxi 15 min to Trastevere Luxury Suites (bags at the 24-hour desk; room ready 4 PM). Afternoon walk to Castel Sant'Angelo.",["Castel_Sant_Angelo"],"✅ Tickets bought. Leave Salernoway at 8:00 with bags (5-min walk) for the 8:37 Italo train 8910 — coach 4, seats 37/38/39. Italo boarding closes 2 min before departure."],
     ["Mon Oct 26",7,"Colosseum, Roman Forum and Palatine Hill ($21 each — tickets open about Sep 26).",["Colosseum","Colosseum_inside","Roman_Forum"]],
     ["Tue Oct 27",7,"Pantheon, Piazza Navona, Trevi Fountain, Spanish Steps (the Pantheon is a 25-min walk from the hotel).",["Pantheon","Piazza_Navona","Trevi_Fountain","Spanish_Steps"]],
     ["Wed Oct 28",7,"Vatican Museums and Sistine Chapel — official guided tour in English at 9:00 AM (✅ booked; show the emailed voucher on your phone). Leave the hotel by 8:00 (44-min walk) or take a taxi. Then St Peter's Basilica.",["Vatican_Museums","Vatican_Stairs","Sistine_Chapel","St_Peters"]],
