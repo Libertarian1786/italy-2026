@@ -112,7 +112,10 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .area>summary::-webkit-details-marker{display:none}
 .area .cnt{margin-left:auto;color:var(--faint);font-weight:600;font-size:14px}
 .area .item{border-top:1px solid var(--line);border-radius:0}
-.links{display:flex;gap:14px;margin-top:6px;font-weight:700;font-size:15px}
+.links{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:6px;font-weight:700;font-size:15px}
+.try{margin:6px 0 0;padding-left:18px;color:var(--soft);font-size:15px}.try li{margin:3px 0}
+.gps{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--faint);user-select:all}
+.grp{padding:10px 14px 4px;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:700}
 .bk{padding:12px 14px;border-top:1px solid var(--line);display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start}
 .bk:first-child{border-top:0}
 .bk .st{font-size:20px;line-height:1.2}
@@ -128,7 +131,8 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .status.paid{background:#3f6b4a;color:#fff}.status.todo{background:var(--line);color:var(--soft)}
 /* bottom tab bar */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
-.tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
+.tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:1 0 auto;min-width:66px;padding:0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
 .tabs a span{font-size:20px;line-height:1}
 .tabs a.on{color:var(--accent)}
 
@@ -173,6 +177,18 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div id="stops"></div>
   </section>
 
+  <section id="places">
+    <h2>Addresses & GPS</h2>
+    <p class="sub">Every place you sleep, every train station you use, and the ship. Tap <b>Google Maps</b> to open the exact spot, or <b>Directions</b> to be guided there from wherever you are. Long-press the GPS numbers to copy them.</p>
+    <div id="placeList"></div>
+  </section>
+
+  <section id="food">
+    <h2>Food</h2>
+    <p class="sub">For each area: what to try, and good places to eat it, with the dish to order. Addresses are exact — tap <b>Google Maps</b>.</p>
+    <div id="foodAreas"></div>
+  </section>
+
   <section id="houses">
     <h2>Houses for sale</h2>
     <p class="sub">Real listings up to $57,000 near each stop, from gate-away.com (checked 23 Sep). Tap "Map" to see a pin. Most agencies only give the village, not the street number — each one says how exact its pin is.</p>
@@ -185,7 +201,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div class="card" id="tracker"></div>
     <h2 style="margin-top:22px">Hotel details</h2>
     <div class="list" id="hotelList"></div>
-    <p class="sub" style="margin-top:10px">Paid at the hotels on top: city tax about $430 plus 10% VAT at six of the seven (about $215).</p>
+    <p class="sub" style="margin-top:10px">Still to pay at check-in: city tax at Cosmo, Le Macerine, Victoria and Trastevere (about $250). It is already in the total cost.</p>
   </section>
 
   <section id="trains">
@@ -194,9 +210,9 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div class="card item" style="margin-bottom:10px">
       <div class="ttl">🎟️ Where to buy train tickets</div>
       <div class="meta" style="margin-top:6px"><b>Trenitalia</b> — every leg except Oct 25, plus the Leonardo Express and the Nov 1 train to the port</div>
-      <div class="links"><a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Website ↗</a><a href="https://apps.apple.com/us/app/trenitalia/id331050847" target="_blank" rel="noopener">iPhone app ↗</a><a href="https://play.google.com/store/apps/details?id=com.lynxspa.prontotreno" target="_blank" rel="noopener">Android app ↗</a></div>
+      <div class="links"><a href="https://www.trenitalia.com/en.html" target="_blank" rel="noopener">Website ↗</a><a href="https://play.google.com/store/apps/details?id=com.lynxspa.prontotreno" target="_blank" rel="noopener">Android app ↗</a></div>
       <div class="meta" style="margin-top:10px"><b>Italo</b> — Salerno → Rome on Sun Oct 25</div>
-      <div class="links"><a href="https://www.italotreno.com/en" target="_blank" rel="noopener">Website ↗</a><a href="https://apps.apple.com/us/app/italo-italian-highspeed-train/id804056898" target="_blank" rel="noopener">iPhone app ↗</a><a href="https://play.google.com/store/apps/details?id=it.italotreno" target="_blank" rel="noopener">Android app ↗</a></div>
+      <div class="links"><a href="https://www.italotreno.com/en" target="_blank" rel="noopener">Website ↗</a><a href="https://play.google.com/store/apps/details?id=it.italotreno" target="_blank" rel="noopener">Android app ↗</a></div>
       <div class="note">Regional trains (RV/RE) have fixed prices and no seat reservation — buy any time, even on the day. In the app the ticket is on your phone; paper tickets from station machines must be stamped in the green/yellow validator before boarding.</div>
     </div>
     <div class="list" id="trainList"></div>
@@ -211,6 +227,12 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <h2>Tickets</h2>
     <p class="sub">For all 3 of you, official sites only.</p>
     <div class="list" id="ticketList"></div>
+  </section>
+
+  <section id="apps">
+    <h2>Useful apps (Android)</h2>
+    <p class="sub">Install at home on Wi-Fi and sign in before you fly.</p>
+    <div id="appList"></div>
   </section>
 
   <section id="costs">
@@ -231,17 +253,23 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <a href="#towns"><span>📍</span>Towns</a>
   <a href="#map-sec"><span>🗺️</span>Map</a>
   <a href="#plan"><span>📅</span>Days</a>
+  <a href="#places"><span>🧭</span>GPS</a>
+  <a href="#food"><span>🍝</span>Food</a>
   <a href="#hotels"><span>🏨</span>Bookings</a>
   <a href="#houses"><span>🏡</span>Houses</a>
+  <a href="#apps"><span>📱</span>Apps</a>
   <a href="#costs"><span>💵</span>Cost</a>
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790219890"></script>
-<script src="photos2.js?v=1790219890"></script>
-<script src="listings.js?v=1790219890"></script>
-<script src="secure.js?v=1790219890"></script>
-<script src="trip.js?v=1790219890"></script>
+<script src="photos.js?v=1790221854"></script>
+<script src="photos2.js?v=1790221854"></script>
+<script src="listings.js?v=1790221854"></script>
+<script src="secure.js?v=1790221854"></script>
+<script src="trip.js?v=1790221854"></script>
+<script src="places.js?v=1790221854"></script>
+<script src="food.js?v=1790221854"></script>
+<script src="apps.js?v=1790221854"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -312,7 +340,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   async function unlock(pw,quiet){try{var Lk=window.LOCKED;if(!Lk)return;var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
       var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(Lk.salt),iterations:Lk.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
       var plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(Lk.iv)},key,b64(Lk.data));var list=JSON.parse(new TextDecoder().decode(plain));
-      list.forEach(function(b){var row=document.querySelector('.bk[data-n="'+b.n+'"] .secslot');if(row)row.innerHTML='<div class="sec">Confirmation <b>'+esc(b.conf)+'</b> · PIN <b>'+esc(b.pin)+'</b>'+(b.due_at_property?'<br>Due at the property: '+esc(b.due_at_property):'')+'</div>';});
+      list.forEach(function(b){var row=document.querySelector('.bk[data-n="'+b.n+'"] .secslot, [data-lock="'+b.n+'"]');if(row)row.innerHTML='<div class="sec">'+esc(b.label||'Confirmation')+' <b>'+esc(b.conf)+'</b>'+(b.pin?' · PIN <b>'+esc(b.pin)+'</b>':'')+(b.due_at_property?'<br>Due at the property: '+esc(b.due_at_property):'')+'</div>';});
       el('lockbox').innerHTML='<span style="font-size:14px;color:var(--soft)">🔓 Unlocked on this device. <a href="#" id="relock">Lock again</a></span>';
       try{localStorage.setItem('tripPw',pw);}catch(e){}
       el('relock').addEventListener('click',function(e){e.preventDefault();try{localStorage.removeItem('tripPw');}catch(x){}location.reload();});
@@ -334,6 +362,33 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     hh+='</details>';});
   el('houseAreas').innerHTML=hh||'<p class="sub">Listings are being collected.</p>';
 
+  // addresses & GPS
+  function gm(la,lo){return'https://www.google.com/maps/search/?api=1&query='+la+','+lo;}
+  function gd(la,lo){return'https://www.google.com/maps/dir/?api=1&destination='+la+','+lo;}
+  var ICON={hotel:'🏨',station:'🚆',change:'🔁',port:'🚢',pier:'⛴️',car:'🚗',bus:'🚌',shuttle:'🚌',gate:'🚶'};
+  var ph='';(window.PLACES||[]).forEach(function(g){
+    ph+='<details class="card area" id="pl'+g.id+'"><summary><span class="num'+(g.id==='ship'?' ship':'')+'">'+esc(g.num)+'</span>'+esc(g.title)+'<span class="cnt">'+g.items.length+' places ▾</span></summary>';
+    g.items.forEach(function(x){var has=x.lat!=null&&x.lon!=null;
+      ph+='<div class="item"><div class="ttl">'+(ICON[x.k]||'📍')+' '+esc(x.name)+'</div>'+(x.when?'<div class="meta">'+esc(x.when)+'</div>':'')+(x.addr?'<div class="meta">📍 '+esc(x.addr)+'</div>':'')+(has?'<div class="gps">'+(+x.lat).toFixed(6)+', '+(+x.lon).toFixed(6)+'</div>':'')+(x.note?'<div class="note">'+esc(x.note)+'</div>':'')+(has?'<div class="links"><a href="'+gm(x.lat,x.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(x.lat,x.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div>':'')+'</div>';});
+    ph+='</details>';});
+  el('placeList').innerHTML=ph||'<p class="sub">Being collected.</p>';
+
+  // food
+  var fh='';(window.FOOD||[]).forEach(function(a){
+    fh+='<details class="card area" id="food'+a.stop+'"><summary><span class="num">'+esc(a.stop)+'</span>'+esc(a.area)+'<span class="cnt">'+a.restaurants.length+' places ▾</span></summary>';
+    if(a.foods_to_try&&a.foods_to_try.length)fh+='<div class="item"><div class="ttl">😋 Try while you are here</div><ul class="try">'+a.foods_to_try.map(function(f){return'<li><b>'+esc(f.food)+'</b> — '+esc(f.what)+'</li>';}).join('')+'</ul></div>';
+    var sec='';a.restaurants.forEach(function(r){
+      if(r.section&&r.section!==sec){sec=r.section;fh+='<div class="grp">'+esc(sec)+'</div>';}
+      var q=encodeURIComponent(r.name+', '+(r.address||''));var bits=[r.closed?'Closed '+r.closed:'',r.booking?'Booking: '+r.booking:''].filter(Boolean);
+      fh+='<div class="item"><div class="top"><div class="ttl">'+esc(r.name)+'</div><div class="price">'+esc(r.price||'')+'</div></div>'+(r.order?'<div class="meta">🍽️ <b>Order:</b> '+esc(r.order)+'</div>':'')+(r.address?'<div class="meta">📍 '+esc(r.address)+'</div>':'')+(r.why?'<div class="note">'+esc(r.why)+'</div>':'')+(bits.length?'<div class="note">'+esc(bits.join(' · '))+'</div>':'')+'<div class="links"><a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">Google Maps ↗</a>'+(r.sources&&r.sources[0]?'<a href="'+esc(r.sources[0])+'" target="_blank" rel="noopener">Why ↗</a>':'')+'</div></div>';});
+    fh+='</details>';});
+  el('foodAreas').innerHTML=fh||'<p class="sub">Being collected.</p>';
+
+  // apps
+  var ah='',AG={},AO=[];((window.APPS||{}).apps||[]).forEach(function(x){if(!AG[x.group]){AG[x.group]=[];AO.push(x.group);}AG[x.group].push(x);});
+  AO.forEach(function(g){ah+='<div class="card" style="margin-bottom:10px"><div class="grp">'+esc(g)+'</div>'+AG[g].map(function(x){return'<div class="item" style="border-top:1px solid var(--line)"><div class="top"><div class="ttl">'+esc(x.name)+'</div><div class="price" style="font-weight:600;color:var(--faint)">'+esc(x.cost||'')+'</div></div><div class="meta">'+esc(x['for']||'')+'</div>'+(x.tip?'<div class="note">Tip: '+esc(x.tip)+'</div>':'')+(x.android?'<div class="links"><a href="'+esc(x.android)+'" target="_blank" rel="noopener">Google Play ↗</a></div>':'')+'</div>';}).join('')+'</div>';});
+  el('appList').innerHTML=ah||'<p class="sub">Being collected.</p>';
+
   // trains
   var tl='';
   T.stops.forEach(function(s,i){var from=i===0?'Airport':T.stops[i-1].town,w=/checking/.test(s.getThere.cost);
@@ -347,7 +402,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   // tickets
   var kl='',kt=0;
-  T.tickets.forEach(function(t){kt+=t[2];kl+='<div class="card item"><div class="top"><div class="ttl">'+esc(t[0])+'</div><div class="price">'+usd(t[2])+'</div></div><div class="meta">'+esc(t[1])+'</div><div class="note">'+esc(t[3])+'</div></div>';});
+  T.tickets.forEach(function(t){kt+=t[2];kl+='<div class="card item"><div class="top"><div class="ttl">'+esc(t[0])+'</div><div class="price">'+usd(t[2])+'</div></div><div class="meta">'+esc(t[1])+'</div><div class="note">'+esc(t[3])+'</div>'+(t[4]?'<div data-lock="'+t[4]+'"></div>':'')+'</div>';});
   kl+='<div class="card"><div class="sumrow total"><span>All tickets</span><span>'+usd(kt)+'</span></div></div>';
   el('ticketList').innerHTML=kl;
 

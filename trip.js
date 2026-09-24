@@ -79,8 +79,8 @@ window.TRIP = {
     ["Sat Oct 24",6,"Salerno old town: cathedral, Minerva medieval garden, seafront.",["Salerno_Cathedral","Giardino_della_Minerva"]],
     ["Sun Oct 25",7,"Italo train to Rome, 8:37 → 10:45, taxi 15 min to Trastevere Luxury Suites (bags at the 24-hour desk; room ready 4 PM). Afternoon walk to Castel Sant'Angelo.",["Castel_Sant_Angelo"]],
     ["Mon Oct 26",7,"Colosseum, Roman Forum and Palatine Hill ($21 each — tickets open about Sep 26).",["Colosseum","Colosseum_inside","Roman_Forum"]],
-    ["Tue Oct 27",7,"Vatican Museums and Sistine Chapel — official 8 am guided tour ($137 for 3), then St Peter's. Day not picked yet: Tue 27, Wed 28 or Thu 29.",["Vatican_Museums","Vatican_Stairs","Sistine_Chapel","St_Peters"]],
-    ["Wed Oct 28",7,"Pantheon, Piazza Navona, Trevi Fountain, Spanish Steps.",["Pantheon","Piazza_Navona","Trevi_Fountain","Spanish_Steps"]],
+    ["Tue Oct 27",7,"Pantheon, Piazza Navona, Trevi Fountain, Spanish Steps (the Pantheon is a 25-min walk from the hotel).",["Pantheon","Piazza_Navona","Trevi_Fountain","Spanish_Steps"]],
+    ["Wed Oct 28",7,"Vatican Museums and Sistine Chapel — official guided tour in English at 9:00 AM (✅ booked; show the emailed voucher on your phone). Leave the hotel by 8:00 (44-min walk) or take a taxi. Then St Peter's Basilica.",["Vatican_Museums","Vatican_Stairs","Sistine_Chapel","St_Peters"]],
     ["Thu Oct 29",7,"Borghese Gallery (timed ticket, opens about Oct 19) and the Villa Borghese park.",["Galleria_Borghese","Villa_Borghese"]],
     ["Fri Oct 30",7,"House hunting in Segni (train, 39 min) — or a free day.",[]],
     ["Sat Oct 31",7,"Trastevere and Santa Maria in Trastevere. Pack.",["Trastevere"]],
@@ -99,8 +99,8 @@ window.TRIP = {
   ],
   tickets:[
     ["Colosseum + Forum + Palatine","Mon Oct 26",62,"Opens about Sep 26 on ticketing.colosseo.it"],
-    ["Vatican Museums — official guided tour, 8 am","Oct 27, 28 or 29",137,"Book now on tickets.museivaticani.va"],
-    ["Uffizi, Florence","Thu Oct 8",99,"Book now on uffizi.it"],
+    ["Vatican Museums — official guided tour in English, 9 am","Wed Oct 28",137,"✅ Booked 24 Sep — €120 paid. The voucher comes by email: show it on your phone (or printed) at the entrance.","vatican"],
+    ["Uffizi, Florence","Wed Oct 7",99,"Book now on uffizi.it"],
     ["Borghese Gallery","Thu Oct 29",62,"Opens about Oct 19"],
     ["Pompeii","Thu Oct 22",68,"Book now on pompeiisites.org"],
     ["Paestum","Fri Oct 23",51,"Buy at the gate"]
