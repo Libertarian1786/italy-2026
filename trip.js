@@ -36,7 +36,7 @@ window.TRIP = {
       houses:"Casarano $43,400 for 115 m² (station in town). Also look in Tricase, Presicce-Acquarica and Ugento." },
     { n:6, town:"Salerno", sub:"Campania — Pompeii and Paestum", from:"Wed Oct 21", to:"Sun Oct 25", nights:4,
       lat:40.678, lon:14.765, photo:"Salerno",
-      hotel:{ name:"B&B Salernoway", status:"todo", access:{station:"5 min (350 m) to Salerno station",centre:"15 min (1.0 km) to the cathedral",grocery:"2 min to Sole365 supermarket",kitchen:"Shared kitchen only"}, url:"https://www.booking.com/hotel/it/b-amp-b-salernoway.html", beds:"twin + king, private bathroom in the room, A/C, free breakfast (Genius)", total:395, cancel:"Free until Oct 20, pay at the property", note:"Triple Room with Bath: $322 + 10% VAT + city tax ≈ $395, free breakfast (Genius). Rated 7.8 from 653 reviews. 1 room left (checked Sep 23 evening)." },
+      hotel:{ name:"B&B Salernoway", status:"booked", charge:"at the B&B", phone:"+39 338 750 5185", email:"", access:{station:"5 min (350 m) to Salerno station",centre:"15 min (1.0 km) to the cathedral",grocery:"2 min to Sole365 supermarket",kitchen:"Shared kitchen only"}, url:"https://www.booking.com/hotel/it/b-amp-b-salernoway.html", beds:"twin + king, private bathroom in the room, A/C, free breakfast (Genius)", total:396, cancel:"Free until the end of Oct 19 (about $89 after), pay at the B&B", note:"Booked 23 Sep: Triple Room with Bath, free breakfast (Genius). About €347 incl. €36 city tax, paid at the B&B — the card only holds the room. Via SS. Martiri Salernitani 31. Arrival 5–6 PM (check-in 3 PM – midnight)." },
       getThere:{ how:"Intercity x2, Lecce 11:35 → Salerno 17:36", time:"6 h, 1 change", cost:"$79" },
       weather:"71° / 59°F · rain about 2 days in 5",
       alt:[{ name:"B&B Luna", url:"https://www.booking.com/hotel/it/appartamento-salerno-salerno1.html", total:266, beds:"2 bedrooms, full bed each, private bathroom", note:"Cheaper and has a kitchen, but 34 min walk to the station.", access:{station:"34 min (2.4 km) to Salerno station",centre:"50 min (3.6 km) to the cathedral",grocery:"4 min to Dodecà supermarket",kitchen:"Yes — kitchen listed"}}],
@@ -89,7 +89,7 @@ window.TRIP = {
   car:{ what:"Peugeot 208 automatic (Sicily By Car, via DiscoverCars)", where:"Pescara Airport — 14 min (12.6 km) by taxi from the hotel in Montesilvano, or TUA bus 38 from Corso Umberto (about 40 min)", price:45, full:95,
         note:"Free cancellation, unlimited km. A full 24 h costs the same as the day. Fuel and tolls about $40 – 50. Automatic cars are scarce in Italy — book early." },
   costs:[
-    ["Hotels, 33 nights (with taxes; unbooked ones estimated)",4361,"booked + live prices, 23 Sep"],
+    ["Hotels, 33 nights (with taxes; unbooked ones estimated)",4362,"booked + live prices, 23 Sep"],
     ["City tax still due at Cosmo, Le Macerine and Victoria Apt",106,"from the confirmations"],
     ["Trains between towns + port shuttle",558,"live fares, 23 Sep"],
     ["Day-trip trains and buses",419,"estimate"],
