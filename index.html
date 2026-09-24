@@ -310,16 +310,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790264098"></script>
-<script src="photos2.js?v=1790264098"></script>
-<script src="listings.js?v=1790264098"></script>
-<script src="secure.js?v=1790264098"></script>
-<script src="trip.js?v=1790264098"></script>
-<script src="places.js?v=1790264098"></script>
-<script src="food.js?v=1790264098"></script>
-<script src="apps.js?v=1790264098"></script>
-<script src="beaches.js?v=1790264098"></script>
-<script src="info.js?v=1790264098"></script>
+<script src="photos.js?v=1790264321"></script>
+<script src="photos2.js?v=1790264321"></script>
+<script src="listings.js?v=1790264321"></script>
+<script src="secure.js?v=1790264321"></script>
+<script src="trip.js?v=1790264321"></script>
+<script src="places.js?v=1790264321"></script>
+<script src="food.js?v=1790264321"></script>
+<script src="apps.js?v=1790264321"></script>
+<script src="beaches.js?v=1790264321"></script>
+<script src="info.js?v=1790264321"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -543,7 +543,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     o+='</details>';}
   if(S&&S.strikes){o+='<details class="card area" id="hStrike"><summary>🚦 Strikes on your dates<span class="cnt">'+S.strikes.length+' ▾</span></summary>';
     o+='<div class="item"><div class="note">Checked '+esc(S.checked)+' on the official Italian strike calendar. Strikes are announced at least 10 days ahead, so check again the week before each train day.</div><div class="links"><a href="https://scioperi.mit.gov.it/" target="_blank" rel="noopener">Official strike calendar ↗</a></div></div>';
-    S.strikes.forEach(function(x){o+='<div class="strike'+(x.affects_us?' hit':'')+'"><div class="ttl">'+(x.affects_us?'⚠️ ':'')+esc(x.dates)+(x.hours?' · '+esc(x.hours):'')+'</div><div class="meta">'+esc(x.sector)+(x.who?' — '+esc(x.who):'')+'</div>'+(x.affects_us&&typeof x.affects_us==='string'?'<div class="note">'+esc(x.affects_us)+'</div>':'')+'</div>';});
+    S.strikes.forEach(function(x){o+='<div class="strike'+(x.hit?' hit':'')+'"><div class="ttl">'+(x.hit?'⚠️ ':'')+esc(x.dates)+(x.hours?' · '+esc(x.hours):'')+'</div><div class="meta">'+esc(x.sector)+(x.who?' — '+esc(x.who):'')+'</div>'+(x.affects_us?'<div class="note">'+esc(x.affects_us)+'</div>':'')+'</div>';});
     if(S.guarantee)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">During a train strike</div><div class="note">'+esc(S.guarantee.weekday_windows)+(S.guarantee.long_distance?' '+esc(S.guarantee.long_distance):'')+'</div></div>';
     if(S.franchigia&&S.franchigia.confirmed)o+='<div class="item" style="border-top:1px solid var(--line)"><div class="note">✅ No transport strikes are allowed '+esc(S.franchigia.from)+' – '+esc(S.franchigia.to)+' (the holiday strike-free period), which covers the ship day.</div></div>';
     o+='</details>';}
