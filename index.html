@@ -227,6 +227,12 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <div id="helpBody"></div>
   </section>
 
+  <section id="beaches">
+    <h2>Beaches</h2>
+    <p class="sub">Easy, flat beaches and seaside walks near your stops. Tap <b>Directions</b> to be guided there. Walking times are at a normal pace, so allow extra. In October most beach clubs are closed, but the promenades are open.</p>
+    <div id="beachList"></div>
+  </section>
+
   <section id="houses">
     <h2>Houses for sale</h2>
     <p class="sub">Real listings up to $57,000 near each stop, from gate-away.com (checked 23 Sep). Tap "Map" to see a pin. Most agencies only give the village, not the street number — each one says how exact its pin is.</p>
@@ -295,6 +301,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <a href="#plan"><span>📅</span>Days</a>
   <a href="#places"><span>🧭</span>GPS</a>
   <a href="#food"><span>🍝</span>Food</a>
+  <a href="#beaches"><span>🏖️</span>Beaches</a>
   <a href="#hotels"><span>🏨</span>Bookings</a>
   <a href="#help"><span>🆘</span>Help</a>
   <a href="#houses"><span>🏡</span>Houses</a>
@@ -303,15 +310,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790263972"></script>
-<script src="photos2.js?v=1790263972"></script>
-<script src="listings.js?v=1790263972"></script>
-<script src="secure.js?v=1790263972"></script>
-<script src="trip.js?v=1790263972"></script>
-<script src="places.js?v=1790263972"></script>
-<script src="food.js?v=1790263972"></script>
-<script src="apps.js?v=1790263972"></script>
-<script src="info.js?v=1790263972"></script>
+<script src="photos.js?v=1790264098"></script>
+<script src="photos2.js?v=1790264098"></script>
+<script src="listings.js?v=1790264098"></script>
+<script src="secure.js?v=1790264098"></script>
+<script src="trip.js?v=1790264098"></script>
+<script src="places.js?v=1790264098"></script>
+<script src="food.js?v=1790264098"></script>
+<script src="apps.js?v=1790264098"></script>
+<script src="beaches.js?v=1790264098"></script>
+<script src="info.js?v=1790264098"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -544,6 +552,15 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   I.phrases.forEach(function(g){o+='<div class="grp">'+esc(g.group)+'</div>'+g.items.map(function(p){return'<div class="ph"><div class="it">'+esc(p[0])+'</div><div class="say">'+esc(p[1])+'</div><div class="en">'+esc(p[2])+'</div></div>';}).join('');});
   o+='<div class="grp">Words on signs</div><div class="signs">'+I.signs.map(function(s){return'<div><b>'+esc(s[0])+'</b>'+esc(s[1])+'</div>';}).join('')+'</div></details>';
   el('helpBody').innerHTML=o;
+
+  // beaches
+  var BB=window.BEACHES||[],bh='',cur=null,cred=[];
+  BB.forEach(function(b){
+    if(b.stop!==cur){if(cur!==null)bh+='</details>';cur=b.stop;var n=BB.filter(function(x){return x.stop===cur;}).length;
+      bh+='<details class="card area" id="beach'+cur+'"><summary><span class="num">'+cur+'</span>'+esc(b.area.split(' (')[0])+'<span class="cnt">'+n+(n>1?' beaches':' beach')+' ▾</span></summary>';}
+    bh+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">🏖️ '+esc(b.name)+'</div>'+(b.photos.length?'<div class="pics">'+b.photos.map(function(ph){cred.push(ph);return'<img loading="lazy" decoding="async" src="'+esc(ph.i)+'" alt="'+esc(b.name)+'">';}).join('')+'</div>':'')+'<div class="meta" style="margin-top:8px">'+esc(b.what)+'</div><div class="meta" style="margin-top:6px">🚶 <b>From '+esc(b.from)+':</b> '+esc(b.how)+'</div><div class="gps">'+(+b.lat).toFixed(6)+', '+(+b.lon).toFixed(6)+'</div><div class="links"><a href="'+gm(b.lat,b.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(b.lat,b.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div><div class="note">Photos: '+b.photos.map(function(ph){return'<a href="'+esc(ph.p)+'" target="_blank" rel="noopener">'+esc(ph.b)+'</a> ('+esc(ph.l)+')';}).join(', ')+'</div></div>';});
+  if(cur!==null)bh+='</details>';
+  el('beachList').innerHTML=bh||'<p class="sub">Being collected.</p>';
 })();
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
 </script>
