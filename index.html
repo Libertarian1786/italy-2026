@@ -167,6 +167,8 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .bignum b.long{font-size:24px}
 .bignum > div{min-width:0}
 .area>summary{min-height:56px}
+#map{height:min(62vh,100vw);min-height:320px}
+.tabs{transform:translateZ(0)}
 .tabs.more{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent)}
 .day .leave{font-size:15px}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
@@ -324,16 +326,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790294144"></script>
-<script src="photos2.js?v=1790294144"></script>
-<script src="listings.js?v=1790294144"></script>
-<script src="secure.js?v=1790294144"></script>
-<script src="trip.js?v=1790294144"></script>
-<script src="places.js?v=1790294144"></script>
-<script src="food.js?v=1790294144"></script>
-<script src="apps.js?v=1790294144"></script>
-<script src="beaches.js?v=1790294144"></script>
-<script src="info.js?v=1790294144"></script>
+<script src="photos.js?v=1790295167"></script>
+<script src="photos2.js?v=1790295167"></script>
+<script src="listings.js?v=1790295167"></script>
+<script src="secure.js?v=1790295167"></script>
+<script src="trip.js?v=1790295167"></script>
+<script src="places.js?v=1790295167"></script>
+<script src="food.js?v=1790295167"></script>
+<script src="apps.js?v=1790295167"></script>
+<script src="beaches.js?v=1790295167"></script>
+<script src="info.js?v=1790295167"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -497,7 +499,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var nav=document.getElementById('tabs'),last=-1;
   function navFade(){nav.classList.toggle('more',nav.scrollLeft+nav.clientWidth<nav.scrollWidth-4);}
   nav.addEventListener('scroll',navFade,{passive:true});window.addEventListener('resize',navFade);
-  function onScroll(){var y=window.scrollY+window.innerHeight*0.35,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});tabs.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  function onScroll(){var y=window.scrollY+window.innerHeight*0.35,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-80)cur=tabs.length-1;tabs.forEach(function(a,i){a.classList.toggle('on',i===cur);});
     if(cur!==last){last=cur;var a=tabs[cur];nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});}navFade();}
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 
@@ -514,7 +516,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
         .bindPopup('<b>'+s.n+'. '+esc(s.town)+'</b><br>'+s.from+' → '+s.to+'<br><a href="#stop'+s.n+'">See the days</a>');
     });
     L.marker([T.end.lat,T.end.lon],{icon:L.divIcon({className:'',html:'<div class="pin end">⚓</div>',iconSize:[30,30],iconAnchor:[15,15]})}).addTo(m).bindPopup('<b>Civitavecchia</b><br>'+T.end.date+' — the ship');
-    var fb=L.latLngBounds(pts).pad(0.04);m.fitBounds(fb);window.addEventListener('load',function(){m.invalidateSize();m.fitBounds(fb);});
+    var fb=L.latLngBounds(pts).pad(0.08);m.fitBounds(fb);window.addEventListener('load',function(){m.invalidateSize();m.fitBounds(fb);});
     var groups={};LS.forEach(function(x){if(x.lat==null)return;var k=(+x.lat).toFixed(4)+','+(+x.lon).toFixed(4);(groups[k]=groups[k]||[]).push(x);});
     var hl=window.L.layerGroup().addTo(m),pinByKey={};
     Object.keys(groups).forEach(function(k){var g=groups[k],ll=k.split(',').map(Number);
