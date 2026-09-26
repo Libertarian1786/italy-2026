@@ -78,7 +78,7 @@ window.TRIP = {
     ["Fri Oct 23",6,"Paestum — Greek temples ($17 each, no booking). 30 min by train.",["Paestum","Paestum_Neptune"],"Leave Salernoway at 8:55 for the 9:32 train to Paestum (arrive 10:02)."],
     ["Sat Oct 24",6,"Salerno old town: cathedral, Minerva medieval garden, seafront.",["Salerno_Cathedral","Giardino_della_Minerva"]],
     ["Sun Oct 25",7,"Italo train to Rome, 8:37 → 10:45, taxi 15 min to Trastevere Luxury Suites (bags at the 24-hour desk; room ready 4 PM). Afternoon walk to Castel Sant'Angelo.",["Castel_Sant_Angelo"],"✅ Tickets bought. Leave Salernoway at 8:00 with bags (5-min walk) for the 8:37 Italo train 8910 — coach 4, seats 37/38/39. Italo boarding closes 2 min before departure."],
-    ["Mon Oct 26",7,"Colosseum, Roman Forum and Palatine Hill ($21 each — tickets open about Sep 26).",["Colosseum","Colosseum_inside","Roman_Forum"]],
+    ["Mon Oct 26",7,"Colosseum at 11:45 AM (✅ booked — bring passports), then the Roman Forum and Palatine Hill.",["Colosseum","Colosseum_inside","Roman_Forum"]],
     ["Tue Oct 27",7,"Pantheon, Piazza Navona, Trevi Fountain, Spanish Steps (the Pantheon is a 25-min walk from the hotel).",["Pantheon","Piazza_Navona","Trevi_Fountain","Spanish_Steps"]],
     ["Wed Oct 28",7,"Vatican Museums and Sistine Chapel — official guided tour in English at 9:00 AM (✅ booked; show the emailed voucher on your phone). Leave the hotel by 8:00 (44-min walk) or take a taxi. Then St Peter's Basilica.",["Vatican_Museums","Vatican_Stairs","Sistine_Chapel","St_Peters"]],
     ["Thu Oct 29",7,"Borghese Gallery (timed ticket, opens about Oct 19) and the Villa Borghese park.",["Galleria_Borghese","Villa_Borghese"]],
@@ -98,7 +98,7 @@ window.TRIP = {
     ["Local taxis, Rome metro and buses",125,"estimate"]
   ],
   tickets:[
-    ["Colosseum + Forum + Palatine","Mon Oct 26",62,"Opens about Sep 26 on ticketing.colosseo.it"],
+    ["Colosseum + Forum + Palatine — 11:45 AM","Mon Oct 26",62,"✅ Booked 26 Sep — €54 paid. Each ticket carries a name, so bring your passports: they check them at the gate. The Forum and Palatine part can be used Oct 25, 26 or 27.","colosseo"],
     ["Vatican Museums — official guided tour in English, 9 am","Wed Oct 28",137,"✅ Booked 24 Sep — €120 paid. The voucher comes by email: show it on your phone (or printed) at the entrance.","vatican"],
     ["Uffizi, Florence","Wed Oct 7",99,"Book now on uffizi.it"],
     ["Borghese Gallery","Thu Oct 29",62,"Opens about Oct 19"],
