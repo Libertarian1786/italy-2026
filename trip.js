@@ -98,7 +98,7 @@ window.TRIP = {
     ["Local taxis, Rome metro and buses",125,"estimate"]
   ],
   tickets:[
-    ["Colosseum + Forum + Palatine — 11:45 AM","Mon Oct 26",62,"✅ Booked 26 Sep — €54 paid. Each ticket carries a name, so bring your passports: they check them at the gate. The Forum and Palatine part can be used Oct 25, 26 or 27.","colosseo"],
+    ["Colosseum + Forum + Palatine — 11:45 AM","Mon Oct 26",62,"✅ Booked 26 Sep — €54 paid. Each ticket carries a name, so bring your passports: they check them at the gate. Be at the Colosseum entrance by 11:30 (15 min early); the visit is 75 minutes. The ticket also gets you into the Roman Forum and Palatine Hill once, any time from 11:45 AM Sun Oct 25 to 11:45 AM Tue Oct 27 — easiest straight after the Colosseum on the 26th. Not included: the arena floor, underground and attic.","colosseo"],
     ["Vatican Museums — official guided tour in English, 9 am","Wed Oct 28",137,"✅ Booked 24 Sep — €120 paid. The voucher comes by email: show it on your phone (or printed) at the entrance.","vatican"],
     ["Uffizi, Florence","Wed Oct 7",99,"Book now on uffizi.it"],
     ["Borghese Gallery","Thu Oct 29",62,"Opens about Oct 19"],
