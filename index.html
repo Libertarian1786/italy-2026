@@ -192,6 +192,15 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .acclinks a{display:flex;flex-direction:column;padding:8px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-weight:700;font-size:15px;line-height:1.25}
 .acclinks a small{font-weight:400;color:var(--soft);font-size:13px;margin-top:2px}
 .checkin{margin-top:8px;padding:10px 12px;border-radius:12px;background:var(--accent-soft);font-size:15px;color:var(--ink)}
+.tday .step{display:flex;gap:10px;align-items:flex-start;padding:9px 14px;border-top:1px solid var(--line);cursor:pointer}
+.tday .step input{flex:0 0 auto;width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent)}
+.tday .step .ic{flex:0 0 auto;width:22px;text-align:center}
+.tday .step .tx{flex:1;min-width:0}
+.tday .step .dur{flex:0 0 auto;font-weight:700;color:var(--navy);white-space:nowrap}
+.tday .step.leg{background:var(--accent-soft)}
+.tday .step.chg .tx{color:var(--soft);font-style:italic}
+.tday .step.done .tx{text-decoration:line-through;color:var(--faint)}
+.tday .tsum{padding:10px 14px;color:var(--soft);font-size:15px}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:1 0 auto;min-width:66px;padding:0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -244,6 +253,12 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     <h2>Day by day</h2>
     <p class="sub">Tap a town to open or close it. Swipe the photos. 🕒 = when to leave the hotel — set for an easy walking pace (or a taxi) so you are at the station a full 30 minutes before every train.</p>
     <div id="stops"></div>
+  </section>
+
+  <section id="travel">
+    <h2>Travel days</h2>
+    <p class="sub">Every moving day, step by step: tickets, check-out, each train with its ride time, the changes, and getting into the next place. Tick steps off as you go (saved on this phone only).</p>
+    <div id="travelList"></div>
   </section>
 
   <section id="places">
@@ -340,6 +355,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <a href="#todo"><span>✅</span>To-do</a>
   <a href="#map-sec"><span>🗺️</span>Map</a>
   <a href="#plan"><span>📅</span>Days</a>
+  <a href="#travel"><span>🧳</span>Travel</a>
   <a href="#places"><span>🧭</span>GPS</a>
   <a href="#food"><span>🍝</span>Food</a>
   <a href="#beaches"><span>🏖️</span>Beaches</a>
@@ -352,17 +368,18 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790688556"></script>
-<script src="photos2.js?v=1790688556"></script>
-<script src="listings.js?v=1790688556"></script>
-<script src="secure.js?v=1790688556"></script>
-<script src="trip.js?v=1790688556"></script>
-<script src="places.js?v=1790688556"></script>
-<script src="food.js?v=1790688556"></script>
-<script src="apps.js?v=1790688556"></script>
-<script src="beaches.js?v=1790688556"></script>
-<script src="access.js?v=1790688556"></script>
-<script src="info.js?v=1790688556"></script>
+<script src="photos.js?v=1790752348"></script>
+<script src="photos2.js?v=1790752348"></script>
+<script src="listings.js?v=1790752348"></script>
+<script src="secure.js?v=1790752348"></script>
+<script src="trip.js?v=1790752348"></script>
+<script src="places.js?v=1790752348"></script>
+<script src="food.js?v=1790752348"></script>
+<script src="apps.js?v=1790752348"></script>
+<script src="beaches.js?v=1790752348"></script>
+<script src="access.js?v=1790752348"></script>
+<script src="travel.js?v=1790752348"></script>
+<script src="info.js?v=1790752348"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -441,7 +458,8 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     el('myTickets').innerHTML=h;
     TIX.forEach(function(g){
       document.querySelectorAll('[data-lock="'+g.lock+'"]').forEach(function(s){s.insertAdjacentHTML('afterend',tixBtn(g.id,g.pages.length));});
-      document.querySelectorAll('.day[data-date="'+g.day+'"]').forEach(function(d){d.insertAdjacentHTML('beforeend','<div>'+tixBtn(g.id,g.pages.length)+'</div>');});});
+      document.querySelectorAll('.day[data-date="'+g.day+'"]').forEach(function(d){d.insertAdjacentHTML('beforeend','<div>'+tixBtn(g.id,g.pages.length)+'</div>');});
+      document.querySelectorAll('[data-tixday="'+g.day+'"] .tsum').forEach(function(d){d.insertAdjacentHTML('beforeend','<div>'+tixBtn(g.id,g.pages.length)+'</div>');});});
     // fetch every ticket file once so the offline cache holds it
     var all=[];TIX.forEach(function(g){g.pages.forEach(function(p){all.push(p.file);});});window.__tixFiles=all;
     Promise.all(all.map(function(f){return fetch('tix/'+f).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer();});}))
@@ -630,6 +648,19 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   I.phrases.forEach(function(g){o+='<div class="grp">'+esc(g.group)+'</div>'+g.items.map(function(p){return'<div class="ph"><div class="it">'+esc(p[0])+'</div><div class="say">'+esc(p[1])+'</div><div class="en">'+esc(p[2])+'</div></div>';}).join('');});
   o+='<div class="grp">Words on signs</div><div class="signs">'+I.signs.map(function(s){return'<div><b>'+esc(s[0])+'</b>'+esc(s[1])+'</div>';}).join('')+'</div></details>';
   el('helpBody').innerHTML=o;
+
+  // travel days
+  var TV=window.TRAVEL||[],tk={};try{tk=JSON.parse(localStorage.getItem('travelTicks')||'{}')||{};}catch(e){tk={};}
+  var TI={buy:'🎫',out:'🏨',leave:'🚶',train:'🚆',change:'🔁',walk:'🚶',taxi:'🚕',in:'🔑',pay:'💶',tip:'💡'};
+  function drawTravel(){var today=new Date(),mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],key=mon[today.getMonth()]+' '+today.getDate();
+    el('travelList').innerHTML=TV.map(function(d,di){var isToday=today.getFullYear()===2026&&d.date.split(' ').slice(1).join(' ')===key;
+      return'<details class="card area tday" id="travel'+di+'"'+(isToday?' open':'')+' data-tixday="'+esc(d.date)+'"><summary>'+(d.tickets==='bought'?'✅':'⏳')+' '+esc(d.date)+' · '+esc(d.title)+'<span class="cnt">▾</span></summary>'
+        +'<div class="tsum">'+esc(d.total)+' · tickets '+(d.tickets==='bought'?'<b>already bought</b>':'<b>still to buy</b> (Trenitalia app)')+'</div>'
+        +d.steps.map(function(s,si){var id=di+'_'+si,dn=!!tk[id];
+          return'<label class="step'+(s[0]==='train'?' leg':'')+(s[0]==='change'?' chg':'')+(dn?' done':'')+'"><input type="checkbox" data-tv="'+id+'"'+(dn?' checked':'')+'><span class="ic">'+(TI[s[0]]||'•')+'</span><span class="tx">'+esc(s[1])+'</span>'+(s[2]?'<span class="dur">'+esc(s[2])+'</span>':'')+'</label>';}).join('')+'</details>';}).join('');}
+  drawTravel();
+  el('travelList').addEventListener('change',function(e){var id=e.target.getAttribute('data-tv');if(!id)return;tk[id]=e.target.checked;try{localStorage.setItem('travelTicks',JSON.stringify(tk));}catch(x){}
+    var l=e.target.closest('.step');if(l)l.classList.toggle('done',e.target.checked);});
 
   // beaches
   var BB=window.BEACHES||[],bh='',cur=null,cred=[];
