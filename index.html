@@ -369,19 +369,19 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790863238"></script>
-<script src="photos2.js?v=1790863238"></script>
-<script src="listings.js?v=1790863238"></script>
-<script src="secure.js?v=1790863238"></script>
-<script src="trip.js?v=1790863238"></script>
-<script src="places.js?v=1790863238"></script>
-<script src="food.js?v=1790863238"></script>
-<script src="apps.js?v=1790863238"></script>
-<script src="beaches.js?v=1790863238"></script>
-<script src="access.js?v=1790863238"></script>
-<script src="travel.js?v=1790863238"></script>
-<script src="paid.js?v=1790863238"></script>
-<script src="info.js?v=1790863238"></script>
+<script src="photos.js?v=1790863290"></script>
+<script src="photos2.js?v=1790863290"></script>
+<script src="listings.js?v=1790863290"></script>
+<script src="secure.js?v=1790863290"></script>
+<script src="trip.js?v=1790863290"></script>
+<script src="places.js?v=1790863290"></script>
+<script src="food.js?v=1790863290"></script>
+<script src="apps.js?v=1790863290"></script>
+<script src="beaches.js?v=1790863290"></script>
+<script src="access.js?v=1790863290"></script>
+<script src="travel.js?v=1790863290"></script>
+<script src="paid.js?v=1790863290"></script>
+<script src="info.js?v=1790863290"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -561,9 +561,11 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var PD=window.PAID;if(PD){var eu=function(n){return'€'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});},sum=function(L){return L.reduce(function(s,x){return s+x.eur;},0);},pb='';
     function grp(t,L,showNote){var s=sum(L);pb+='<div class="grp">'+t+'</div>'+L.map(function(x){return'<div class="sumrow"><div>'+esc(x.name)+(x.when||(showNote&&x.note)?'<div class="s">'+esc([x.when,showNote?x.note:''].filter(Boolean).join(' · '))+'</div>':'')+'</div><div style="font-weight:700;white-space:nowrap">'+eu(x.eur)+'</div></div>';}).join('')+'<div class="sumrow"><span><b>'+t.replace(/^\S+\s/,'')+' total</b></span><span style="font-weight:700">'+eu(s)+' · '+usd(Math.round(s*PD.rate))+'</span></div>';return s;}
     var g=grp('🏨 Places to stay',PD.hotels,true)+grp('🧾 City taxes (paid at each stay)',PD.tax,false)+grp('🚆 Train tickets bought',PD.trains,true)+grp('🎫 Sights booked',PD.sights,false);
-    var each=Math.round(g/3*100)/100;
+    var own=PD.hotels.concat(PD.tax,PD.trains,PD.sights).filter(function(x){return x.nosplit;}).reduce(function(s,x){return s+x.eur;},0);
+    var each=Math.round((g-own)/3*100)/100;
     pb+='<div class="sumrow total"><span>Total, all 3 of you</span><span>'+eu(g)+' · '+usd(Math.round(g*PD.rate))+'</span></div>'
       +'<div class="grp">💳 Each person&#39;s share (one third)</div>'
+      +(own?'<div class="sumrow"><span class="s">Split three ways: '+eu(g-own)+'. Not split: '+eu(own)+' (David&#39;s own Sep 30 ticket).</span></div>':'')
       +'<div class="sumrow"><span><b>Kenneth owes David</b></span><span style="font-weight:700">'+eu(each)+' · '+usd(Math.round(each*PD.rate))+'</span></div>'
       +'<div class="sumrow"><span><b>Jane owes David</b></span><span style="font-weight:700">'+eu(each)+' · '+usd(Math.round(each*PD.rate))+'</span></div>'
       +'<div class="sumrow total"><span>Kenneth &amp; Jane together</span><span>'+eu(each*2)+' · '+usd(Math.round(each*2*PD.rate))+'</span></div>'
