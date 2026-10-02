@@ -392,20 +392,20 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790929120"></script>
-<script src="photos2.js?v=1790929120"></script>
-<script src="listings.js?v=1790929120"></script>
-<script src="secure.js?v=1790929120"></script>
-<script src="trip.js?v=1790929120"></script>
-<script src="places.js?v=1790929120"></script>
-<script src="food.js?v=1790929120"></script>
-<script src="apps.js?v=1790929120"></script>
-<script src="beaches.js?v=1790929120"></script>
-<script src="access.js?v=1790929120"></script>
-<script src="travel.js?v=1790929120"></script>
-<script src="paid.js?v=1790929120"></script>
-<script src="walks.js?v=1790929120"></script>
-<script src="info.js?v=1790929120"></script>
+<script src="photos.js?v=1790929952"></script>
+<script src="photos2.js?v=1790929952"></script>
+<script src="listings.js?v=1790929952"></script>
+<script src="secure.js?v=1790929952"></script>
+<script src="trip.js?v=1790929952"></script>
+<script src="places.js?v=1790929952"></script>
+<script src="food.js?v=1790929952"></script>
+<script src="apps.js?v=1790929952"></script>
+<script src="beaches.js?v=1790929952"></script>
+<script src="access.js?v=1790929952"></script>
+<script src="travel.js?v=1790929952"></script>
+<script src="paid.js?v=1790929952"></script>
+<script src="walks.js?v=1790929952"></script>
+<script src="info.js?v=1790929952"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -738,13 +738,13 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   var town={};(T.stops||[]).forEach(function(s){town[s.n]=s.town;});
   var groups={},ordr=[];WK.forEach(function(w,i){w._i=i;if(!groups[w.area]){groups[w.area]=[];ordr.push(w.area);}groups[w.area].push(w);});
   function badge(w){var c=(w.climb||'').toLowerCase(),st=(w.steps||'').toLowerCase(),b='';
-    b+=/flat/.test(c)?'<span class="wbadge ok">flat</span>':/gentle/.test(c)?'<span class="wbadge ok">gentle slopes</span>':c?'<span class="wbadge warn">'+esc(w.climb)+'</span>':'';
-    if(st&&!/^none/.test(st))b+='<span class="wbadge warn">'+(/many/.test(st)?'many steps':'some steps')+'</span>';return b;}
+    b+=/^flat/.test(c)?' <span class="wbadge ok">flat</span>':/^gentle/.test(c)?' <span class="wbadge ok">gentle slopes</span>':/steep/.test(c)?' <span class="wbadge warn">steep hill</span>':c?' <span class="wbadge warn">uphill</span>':'';
+    if(st&&!/^none/.test(st))b+=' <span class="wbadge warn">'+(/many/.test(st)?'many steps':'some steps')+'</span>';return b;}
   var h='';ordr.forEach(function(a){var G=groups[a];
     h+='<details class="card area" id="walkarea'+a+'"><summary><span class="num">'+a+'</span>'+esc(town[a]||('Stop '+a))+'<span class="cnt">'+G.length+(G.length>1?' walks':' walk')+' ▾</span></summary>';
     G.forEach(function(w){var km=w.km_routed||w.km_claimed,gm='https://www.google.com/maps/search/?api=1&query='+w.start.lat+','+w.start.lon,gd='https://www.google.com/maps/dir/?api=1&travelmode=walking&destination='+w.start.lat+','+w.start.lon;
       h+='<div class="walk"><div class="ttl">🚶 '+esc(w.name)+badge(w)+'</div>'
-        +'<div class="wstat">'+(w.place&&w.place!==town[a]?esc(w.place)+' · ':'')+(km?'about '+km+' km'+(w.loop?' loop':' one way'):'')+(w.time?' · '+esc(/min|hour/i.test(w.time)?w.time:String(w.time).replace(/^([0-9]+ ?[\u2013\-] ?[0-9]+)/,'$1 min')):'')+(w.surface?' · '+esc(w.surface):'')+'</div>'
+        +'<div class="wstat">'+(w.place&&w.place!==town[a]?esc(w.place)+' · ':'')+(km?'about '+km+' km'+(w.loop?' loop':' one way'):'')+(w.time?' · '+esc(w.time):'')+'</div>'+(w.climb&&!/^flat/i.test(w.climb)?'<div class="note">⛰️ '+esc(w.climb)+'</div>':'')+(w.surface?'<div class="note">👟 '+esc(w.surface)+'</div>':'')
         +(w.highlights.length?'<ul class="hl">'+w.highlights.map(function(x){return'<li>'+esc(x)+'</li>';}).join('')+'</ul>':'')
         +'<div class="wmap" id="wmap'+w._i+'"></div>'
         +'<div class="meta">📍 Start: '+esc(w.start.name)+'</div>'
