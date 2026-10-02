@@ -201,6 +201,10 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 .tday .step.chg .tx{color:var(--soft);font-style:italic}
 .tday .step.done .tx{text-decoration:line-through;color:var(--faint)}
 .tday .tsum{padding:10px 14px;color:var(--soft);font-size:15px}
+.wx{margin-top:6px;font-size:15px;color:var(--soft)}
+.wx b{color:var(--ink)}
+#wxToday{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
+#wxToday .big{font-size:22px;font-weight:700}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:1000;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
 .tabs{overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
 .tabs a{flex:1 0 auto;min-width:66px;padding:0 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:56px;text-decoration:none;color:var(--soft);font-size:11px;font-weight:700;gap:2px}
@@ -226,6 +230,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   <p class="lead">Sep 29 – Nov 1, 2026 · Rome to Rome, then the ship.</p>
   <div class="chips"><span class="chip">7 stops</span><span class="chip">33 nights</span><span class="chip" id="totChip"></span></div>
   <a id="todayBtn" href="#">📍 Jump to today</a>
+  <div id="wxToday"></div>
 </header>
 
 <main class="wrap">
@@ -369,19 +374,19 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1790863290"></script>
-<script src="photos2.js?v=1790863290"></script>
-<script src="listings.js?v=1790863290"></script>
-<script src="secure.js?v=1790863290"></script>
-<script src="trip.js?v=1790863290"></script>
-<script src="places.js?v=1790863290"></script>
-<script src="food.js?v=1790863290"></script>
-<script src="apps.js?v=1790863290"></script>
-<script src="beaches.js?v=1790863290"></script>
-<script src="access.js?v=1790863290"></script>
-<script src="travel.js?v=1790863290"></script>
-<script src="paid.js?v=1790863290"></script>
-<script src="info.js?v=1790863290"></script>
+<script src="photos.js?v=1790926006"></script>
+<script src="photos2.js?v=1790926006"></script>
+<script src="listings.js?v=1790926006"></script>
+<script src="secure.js?v=1790926006"></script>
+<script src="trip.js?v=1790926006"></script>
+<script src="places.js?v=1790926006"></script>
+<script src="food.js?v=1790926006"></script>
+<script src="apps.js?v=1790926006"></script>
+<script src="beaches.js?v=1790926006"></script>
+<script src="access.js?v=1790926006"></script>
+<script src="travel.js?v=1790926006"></script>
+<script src="paid.js?v=1790926006"></script>
+<script src="info.js?v=1790926006"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -685,6 +690,28 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
     bh+='<div class="item" style="border-top:1px solid var(--line)"><div class="ttl">🏖️ '+esc(b.name)+'</div>'+(b.photos.length?'<div class="pics">'+b.photos.map(function(ph){cred.push(ph);return'<img loading="lazy" decoding="async" src="'+esc(ph.i)+'" alt="'+esc(b.name)+'">';}).join('')+'</div>':'')+'<div class="meta" style="margin-top:8px">'+esc(b.what)+'</div><div class="meta" style="margin-top:6px">🚶 <b>From '+esc(b.from)+':</b> '+esc(b.how)+'</div><div class="gps">'+(+b.lat).toFixed(6)+', '+(+b.lon).toFixed(6)+'</div><div class="links"><a href="'+gm(b.lat,b.lon)+'" target="_blank" rel="noopener">Google Maps ↗</a><a href="'+gd(b.lat,b.lon)+'" target="_blank" rel="noopener">Directions ↗</a></div><div class="note">Photos: '+b.photos.map(function(ph){return'<a href="'+esc(ph.p)+'" target="_blank" rel="noopener">'+esc(ph.b)+'</a> ('+esc(ph.l)+')';}).join(', ')+'</div></div>';});
   if(cur!==null)bh+='</details>';
   el('beachList').innerHTML=bh||'<p class="sub">Being collected.</p>';
+})();
+// live weather: Open-Meteo forecast (free, no key) for wherever you sleep each day; refreshed every time the site opens
+(function(){var T=window.TRIP;if(!T||!T.days)return;
+  var MO={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  function iso(d){var p=d.split(' ');return '2026-'+('0'+MO[p[1]]).slice(-2)+'-'+('0'+p[2]).slice(-2);}
+  var L=T.stops.map(function(s){return{n:s.n,town:s.town,lat:s.lat,lon:s.lon};});L.push({n:0,town:T.end.town,lat:T.end.lat,lon:T.end.lon});
+  var idx={};L.forEach(function(l,i){idx[l.n]=i;});
+  var W={0:['☀️','Sunny'],1:['🌤️','Mostly sunny'],2:['⛅','Partly cloudy'],3:['☁️','Cloudy'],45:['🌫️','Fog'],48:['🌫️','Fog'],51:['🌦️','Light drizzle'],53:['🌦️','Drizzle'],55:['🌧️','Heavy drizzle'],56:['🌧️','Freezing drizzle'],57:['🌧️','Freezing drizzle'],61:['🌧️','Light rain'],63:['🌧️','Rain'],65:['🌧️','Heavy rain'],66:['🌧️','Freezing rain'],67:['🌧️','Freezing rain'],71:['🌨️','Light snow'],73:['🌨️','Snow'],75:['🌨️','Heavy snow'],77:['🌨️','Snow'],80:['🌦️','Showers'],81:['🌧️','Showers'],82:['⛈️','Heavy showers'],85:['🌨️','Snow showers'],86:['🌨️','Snow showers'],95:['⛈️','Thunderstorms'],96:['⛈️','Thunderstorms'],99:['⛈️','Thunderstorms']};
+  function line(f){var w=W[f.c]||['🌡️',''];return w[0]+' <b>'+w[1]+'</b> · '+Math.round(f.hi)+'° / '+Math.round(f.lo)+'°F · '+(f.p==null?'':f.p+'% chance of rain');}
+  function show(store){var by={};store.data.forEach(function(r,i){var d=r.daily;d.time.forEach(function(t,k){by[i+'|'+t]={c:d.weather_code[k],hi:d.temperature_2m_max[k],lo:d.temperature_2m_min[k],p:d.precipitation_probability_max[k]};});});
+    var stamp=new Date(store.t),when=stamp.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+stamp.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    var todayIso=(function(){var n=new Date();return n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2)+'-'+('0'+n.getDate()).slice(-2);})();
+    T.days.forEach(function(d){var i=idx[d[1]];if(i==null)return;var f=by[i+'|'+iso(d[0])];
+      document.querySelectorAll('.day[data-date="'+d[0]+'"]').forEach(function(el){var x=el.querySelector('.wx');if(!f){if(x)x.remove();return;}
+        if(!x){x=document.createElement('div');x.className='wx';var dd=el.querySelector('.d');dd.parentNode.insertBefore(x,dd.nextSibling);}
+        x.innerHTML='Forecast at '+L[i].town+': '+line(f);});
+      if(iso(d[0])===todayIso&&f){var b=document.getElementById('wxToday');b.style.display='block';
+        b.innerHTML='<div>Today at '+L[i].town+'</div><div class="big">'+line(f).replace(' · ','<br>')+'</div><div style="font-size:13px;color:var(--faint);margin-top:4px">Forecast updated '+when+(navigator.onLine===false?' (offline: last saved forecast)':'')+'</div>';}});}
+  var cached=null;try{cached=JSON.parse(localStorage.getItem('tripWx')||'null');}catch(e){}
+  if(cached&&cached.data)show(cached);
+  var url='https://api.open-meteo.com/v1/forecast?latitude='+L.map(function(l){return l.lat;}).join(',')+'&longitude='+L.map(function(l){return l.lon;}).join(',')+'&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=Europe%2FRome&forecast_days=16';
+  fetch(url).then(function(r){return r.json();}).then(function(j){if(!Array.isArray(j))j=[j];var st={t:Date.now(),data:j};try{localStorage.setItem('tripWx',JSON.stringify(st));}catch(e){}show(st);}).catch(function(){});
 })();
 if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
   // first visit: files loaded before the offline helper took over, so fetch them again once it is in charge
