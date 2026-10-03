@@ -392,20 +392,20 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1791016417"></script>
-<script src="photos2.js?v=1791016417"></script>
-<script src="listings.js?v=1791016417"></script>
-<script src="secure.js?v=1791016417"></script>
-<script src="trip.js?v=1791016417"></script>
-<script src="places.js?v=1791016417"></script>
-<script src="food.js?v=1791016417"></script>
-<script src="apps.js?v=1791016417"></script>
-<script src="beaches.js?v=1791016417"></script>
-<script src="access.js?v=1791016417"></script>
-<script src="travel.js?v=1791016417"></script>
-<script src="paid.js?v=1791016417"></script>
-<script src="walks.js?v=1791016417"></script>
-<script src="info.js?v=1791016417"></script>
+<script src="photos.js?v=1791017006"></script>
+<script src="photos2.js?v=1791017006"></script>
+<script src="listings.js?v=1791017006"></script>
+<script src="secure.js?v=1791017006"></script>
+<script src="trip.js?v=1791017006"></script>
+<script src="places.js?v=1791017006"></script>
+<script src="food.js?v=1791017006"></script>
+<script src="apps.js?v=1791017006"></script>
+<script src="beaches.js?v=1791017006"></script>
+<script src="access.js?v=1791017006"></script>
+<script src="travel.js?v=1791017006"></script>
+<script src="paid.js?v=1791017006"></script>
+<script src="walks.js?v=1791017006"></script>
+<script src="info.js?v=1791017006"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -690,7 +690,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   // travel days
   var TV=window.TRAVEL||[],tk={};try{tk=JSON.parse(localStorage.getItem('travelTicks')||'{}')||{};}catch(e){tk={};}
-  var TI={buy:'🎫',out:'🏨',leave:'🚶',train:'🚆',change:'🔁',walk:'🚶',taxi:'🚕',in:'🔑',pay:'💶',tip:'💡'};
+  var TI={buy:'🎫',out:'🏨',leave:'🚶',train:'🚆',change:'🔁',walk:'🚶',taxi:'🚕',in:'🔑',pay:'💶',tip:'💡',see:'🏛️'};
   function drawTravel(){var today=new Date(),mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],key=mon[today.getMonth()]+' '+today.getDate();
     el('travelList').innerHTML=TV.map(function(d,di){var isToday=today.getFullYear()===2026&&d.date.split(' ').slice(1).join(' ')===key;
       return'<details class="card area tday" id="travel'+di+'"'+(isToday?' open':'')+' data-tixday="'+esc(d.date)+'"><summary>'+(d.tickets==='bought'?'✅':'⏳')+' '+esc(d.date)+' · '+esc(d.title)+'<span class="cnt">▾</span></summary>'
