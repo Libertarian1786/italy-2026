@@ -392,20 +392,20 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1791017143"></script>
-<script src="photos2.js?v=1791017143"></script>
-<script src="listings.js?v=1791017143"></script>
-<script src="secure.js?v=1791017143"></script>
-<script src="trip.js?v=1791017143"></script>
-<script src="places.js?v=1791017143"></script>
-<script src="food.js?v=1791017143"></script>
-<script src="apps.js?v=1791017143"></script>
-<script src="beaches.js?v=1791017143"></script>
-<script src="access.js?v=1791017143"></script>
-<script src="travel.js?v=1791017143"></script>
-<script src="paid.js?v=1791017143"></script>
-<script src="walks.js?v=1791017143"></script>
-<script src="info.js?v=1791017143"></script>
+<script src="photos.js?v=1791017659"></script>
+<script src="photos2.js?v=1791017659"></script>
+<script src="listings.js?v=1791017659"></script>
+<script src="secure.js?v=1791017659"></script>
+<script src="trip.js?v=1791017659"></script>
+<script src="places.js?v=1791017659"></script>
+<script src="food.js?v=1791017659"></script>
+<script src="apps.js?v=1791017659"></script>
+<script src="beaches.js?v=1791017659"></script>
+<script src="access.js?v=1791017659"></script>
+<script src="travel.js?v=1791017659"></script>
+<script src="paid.js?v=1791017659"></script>
+<script src="walks.js?v=1791017659"></script>
+<script src="info.js?v=1791017659"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -698,6 +698,17 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
         +d.steps.map(function(s,si){var id=di+'_'+si,dn=!!tk[id];
           return'<label class="step'+(s[0]==='train'?' leg':'')+(s[0]==='change'?' chg':'')+(dn?' done':'')+'"><input type="checkbox" data-tv="'+id+'"'+(dn?' checked':'')+'><span class="ic">'+(TI[s[0]]||'•')+'</span><span class="tx">'+esc(s[1])+'</span>'+(s[2]?'<span class="dur">'+esc(s[2])+'</span>':'')+'</label>';}).join('')+'</details>';}).join('');}
   drawTravel();
+  // on the travel day itself, hide departures that have already left
+  function romeNow(){try{var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()),o={};p.forEach(function(x){o[x.type]=x.value;});return{key:o.month+' '+(+o.day),min:(+o.hour%24)*60+(+o.minute)};}catch(e){var d=new Date();return{key:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate(),min:d.getHours()*60+d.getMinutes()};}}
+  function trimPast(t,now){
+    if(!/\d{2}:\d{2}→\d{2}:\d{2} · /.test(t)&&!/from the station: \d/.test(t))return t;
+    var gone=0,out=t.replace(/(\d{2}):(\d{2})(→\d{2}:\d{2})?( \([^)]*\))?( · |(?=\.|$))/g,function(m,h,mi){if((+h)*60+(+mi)<now){gone++;return'';}return m;});
+    if(!gone)return t;
+    out=out.replace(/: (?=\.|$)/g,': none left today');
+    return out+' (earlier ones already left)';}
+  function updatePast(){var n=romeNow();TV.forEach(function(d,di){if(d.date.split(' ').slice(1).join(' ')!==n.key)return;
+    d.steps.forEach(function(s,si){if(s[0]!=='train'&&s[0]!=='taxi')return;var c=document.querySelector('[data-tv="'+di+'_'+si+'"]');if(!c)return;var tx=c.parentNode.querySelector('.tx');if(tx)tx.textContent=trimPast(s[1],n.min);});});}
+  updatePast();setInterval(updatePast,60000);document.addEventListener('visibilitychange',function(){if(!document.hidden)updatePast();});
   el('travelList').addEventListener('change',function(e){var id=e.target.getAttribute('data-tv');if(!id)return;tk[id]=e.target.checked;try{localStorage.setItem('travelTicks',JSON.stringify(tk));}catch(x){}
     var l=e.target.closest('.step');if(l)l.classList.toggle('done',e.target.checked);});
 
