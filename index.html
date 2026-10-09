@@ -396,20 +396,20 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 </nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="photos.js?v=1791387017"></script>
-<script src="photos2.js?v=1791387017"></script>
-<script src="listings.js?v=1791387017"></script>
-<script src="secure.js?v=1791387017"></script>
-<script src="trip.js?v=1791387017"></script>
-<script src="places.js?v=1791387017"></script>
-<script src="food.js?v=1791387017"></script>
-<script src="apps.js?v=1791387017"></script>
-<script src="beaches.js?v=1791387017"></script>
-<script src="access.js?v=1791387017"></script>
-<script src="travel.js?v=1791387017"></script>
-<script src="paid.js?v=1791387017"></script>
-<script src="walks.js?v=1791387017"></script>
-<script src="info.js?v=1791387017"></script>
+<script src="photos.js?v=1791583259"></script>
+<script src="photos2.js?v=1791583259"></script>
+<script src="listings.js?v=1791583259"></script>
+<script src="secure.js?v=1791583259"></script>
+<script src="trip.js?v=1791583259"></script>
+<script src="places.js?v=1791583259"></script>
+<script src="food.js?v=1791583259"></script>
+<script src="apps.js?v=1791583259"></script>
+<script src="beaches.js?v=1791583259"></script>
+<script src="access.js?v=1791583259"></script>
+<script src="travel.js?v=1791583259"></script>
+<script src="paid.js?v=1791583259"></script>
+<script src="walks.js?v=1791583259"></script>
+<script src="info.js?v=1791583259"></script>
 <script>
 (function(){
   var T=window.TRIP,P=window.PHOTOS,used={};
@@ -510,7 +510,7 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
   async function unlock(pw,quiet){try{var Lk=window.LOCKED;if(!Lk)return;var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
       var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(Lk.salt),iterations:Lk.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);TKEY=key;
       var plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(Lk.iv)},key,b64(Lk.data));var list=JSON.parse(new TextDecoder().decode(plain));
-      list.forEach(function(b){var row=document.querySelector('.bk[data-n="'+b.n+'"] .secslot, [data-lock="'+b.n+'"]');if(row)row.innerHTML='<div class="sec">'+esc(b.label||'Confirmation')+' <b>'+esc(b.conf)+'</b>'+(b.pin?' · PIN <b>'+esc(b.pin)+'</b>':'')+(b.due_at_property?'<br>Due at the property: '+esc(b.due_at_property):'')+(b.extra||[]).map(function(x){return'<br><b>'+esc(x)+'</b>';}).join('')+'</div>';});
+      window._BK=list;if(window.fillKeys)window.fillKeys();list.forEach(function(b){var row=document.querySelector('.bk[data-n="'+b.n+'"] .secslot, [data-lock="'+b.n+'"]');if(row)row.innerHTML='<div class="sec">'+esc(b.label||'Confirmation')+' <b>'+esc(b.conf)+'</b>'+(b.pin?' · PIN <b>'+esc(b.pin)+'</b>':'')+(b.due_at_property?'<br>Due at the property: '+esc(b.due_at_property):'')+(b.extra||[]).map(function(x){return'<br><b>'+esc(x)+'</b>';}).join('')+'</div>';});
       if(Lk.tix){try{TIX=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(Lk.tix.iv)},key,b64(Lk.tix.data))));showTix();}catch(x){}}
       el('lockbox').innerHTML='<span style="font-size:14px;color:var(--soft)">🔓 Unlocked on this device. <a href="#" id="relock">Lock again</a></span>';
       try{localStorage.setItem('tripPw',pw);}catch(e){}
@@ -694,14 +694,16 @@ footer{padding:24px 0 20px;color:var(--faint);font-size:13px}
 
   // travel days
   var TV=window.TRAVEL||[],tk={};try{tk=JSON.parse(localStorage.getItem('travelTicks')||'{}')||{};}catch(e){tk={};}
-  var TI={buy:'🎫',out:'🏨',leave:'🚶',train:'🚆',change:'🔁',walk:'🚶',taxi:'🚕',in:'🔑',pay:'💶',tip:'💡',see:'🏛️'};
+  var TI={buy:'🎫',out:'🏨',leave:'🚶',train:'🚆',change:'🔁',walk:'🚶',taxi:'🚕',in:'🔑',pay:'💶',tip:'💡',see:'🏛️',key:'🔑'};
   function drawTravel(){var today=new Date(),mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],key=mon[today.getMonth()]+' '+today.getDate();
     el('travelList').innerHTML=TV.map(function(d,di){var isToday=today.getFullYear()===2026&&d.date.split(' ').slice(1).join(' ')===key;
       return'<details class="card area tday" id="travel'+di+'"'+(isToday?' open':'')+' data-tixday="'+esc(d.date)+'"><summary>'+(d.tickets==='bought'?'✅':'⏳')+' '+esc(d.date)+' · '+esc(d.title)+'<span class="cnt">▾</span></summary>'
         +'<div class="tsum">'+esc(d.total)+' · tickets '+(d.tickets==='bought'?'<b>already bought</b>':'<b>still to buy</b> (Trenitalia app)')+'</div>'
         +d.steps.map(function(s,si){var id=di+'_'+si,dn=!!tk[id];
-          return'<label class="step'+(s[0]==='train'?' leg':'')+(s[0]==='change'?' chg':'')+(dn?' done':'')+'"><input type="checkbox" data-tv="'+id+'"'+(dn?' checked':'')+'><span class="ic">'+(TI[s[0]]||'•')+'</span><span class="tx">'+esc(s[1])+'</span>'+(s[2]?'<span class="dur">'+esc(s[2])+'</span>':'')+'</label>';}).join('')+'</details>';}).join('');}
+          return'<label class="step'+(s[0]==='train'?' leg':'')+(s[0]==='change'?' chg':'')+(dn?' done':'')+'"><input type="checkbox" data-tv="'+id+'"'+(dn?' checked':'')+'><span class="ic">'+(TI[s[0]]||'•')+'</span><span class="tx">'+esc(s[1])+(s[0]==='key'?' <span class="kc" data-keycode="'+s[3]+'">🔒 Unlock the site with the password (top of the Bookings tab) to show the key box code here.</span>':'')+'</span>'+(s[2]?'<span class="dur">'+esc(s[2])+'</span>':'')+'</label>';}).join('')+'</details>';}).join('');}
   drawTravel();
+  window.fillKeys=function(){var L=window._BK||[];document.querySelectorAll('[data-keycode]').forEach(function(e){var b=L.filter(function(x){return String(x.n)===e.getAttribute('data-keycode');})[0];if(b&&b.extra&&b.extra.length)e.innerHTML='<b style="font-size:20px">'+b.extra.map(esc).join(' · ')+'</b>';});};
+  fillKeys();
   // on the travel day itself, hide departures that have already left
   function romeNow(){try{var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()),o={};p.forEach(function(x){o[x.type]=x.value;});return{key:o.month+' '+(+o.day),min:(+o.hour%24)*60+(+o.minute)};}catch(e){var d=new Date();return{key:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getDate(),min:d.getHours()*60+d.getMinutes()};}}
   function trimPast(t,now){
